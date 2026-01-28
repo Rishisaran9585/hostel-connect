@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Calendar, User, ArrowRight, Clock, Bookmark, Share2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -17,11 +18,11 @@ interface BlogPost {
   tags?: string[];
 }
 
-const blogPosts: BlogPost[] = [
+const initialBlogPosts: BlogPost[] = [
   {
     id: 1,
-    title: 'Understanding Tamil Nadu: New Fire Safety Regulations for Hostels',
-    excerpt: 'A comprehensive guide to the latest fire safety requirements and compliance standards mandated by the TN government for accommodation providers in 2024.',
+    title: 'New Fire Safety Rules for Hostels in Tamil Nadu',
+    excerpt: 'A simple guide to the newest fire safety rules for 2024. Learn what you need to do to stay safe.',
     date: '2024-01-25',
     author: 'CHOA Executive Committee',
     readTime: '12 min read',
@@ -31,8 +32,8 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 2,
-    title: 'How CHOA Advocacy Achieved Statewide GST Exemption',
-    excerpt: 'An inside look at the 24-month lobbying efforts that successfully secured tax relief for thousands of hostel entrepreneurs.',
+    title: 'How We Helped the State Get GST Tax Relief',
+    excerpt: 'The story of how we worked together to save hostel owners money on GST taxes.',
     date: '2024-01-20',
     author: 'Legal Advocacy Wing',
     readTime: '8 min read',
@@ -90,17 +91,8 @@ const formatDate = (dateString: string) => {
   });
 };
 
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-IN', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-};
-
 const Blog = () => {
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>(initialBlogPosts);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -140,13 +132,13 @@ const Blog = () => {
 
         <div className="container mx-auto px-4 relative z-10 text-center">
           <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-1.5 mb-8 backdrop-blur-md uppercase tracking-widest text-[10px] font-black">
-            Association Editorial
+            Our Blog
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight max-w-4xl mx-auto leading-tight">
-            Insights for the <span className="text-white/80">Visionary Owner</span>
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight max-w-4xl mx-auto leading-tight">
+            Helpful <span className="text-white/80">Articles for Owners</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed font-medium">
-            Official releases, compliance updates, and expert strategy for Tamil Nadu's hostel industry.
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed font-medium">
+            Read about news, rules, and tips for running a hostel in Tamil Nadu.
           </p>
         </div>
       </section>
@@ -159,12 +151,14 @@ const Blog = () => {
           <div className="mb-16 animate-fade-up">
             <div className="group relative bg-card rounded-[2.5rem] overflow-hidden border border-border/50 shadow-xl hover:shadow-primary/5 transition-all duration-700">
               <div className="grid lg:grid-cols-2 gap-0">
-                <div className="aspect-video lg:aspect-auto overflow-hidden">
-                  <img
-                    src={blogPosts[0].image}
-                    alt={blogPosts[0].title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                  />
+                <div className="aspect-video lg:aspect-auto overflow-hidden bg-secondary/20">
+                  {blogPosts[0] && (
+                    <img
+                      src={blogPosts[0].image}
+                      alt={blogPosts[0].title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                    />
+                  )}
                 </div>
                 <div className="p-8 md:p-12 flex flex-col justify-center relative">
                   <div className="absolute top-8 right-8 flex gap-2">
@@ -177,37 +171,45 @@ const Blog = () => {
                   </div>
 
                   <Badge className="bg-primary/20 text-primary border-primary/30 mb-6 px-3 py-1 w-fit rounded-lg font-black uppercase tracking-widest text-[9px]">
-                    Featured Editorial
+                    Featured Post
                   </Badge>
 
-                  <h2 className="text-3xl md:text-4xl font-black text-foreground mb-6 tracking-tight leading-tight group-hover:text-primary transition-colors">
-                    {blogPosts[0].title}
-                  </h2>
-                  <p className="text-muted-foreground text-base font-medium mb-8 leading-relaxed">
-                    {blogPosts[0].excerpt}
-                  </p>
+                  {blogPosts[0] ? (
+                    <>
+                      <h2 className="text-3xl md:text-4xl font-black text-foreground mb-6 tracking-tight leading-tight group-hover:text-primary transition-colors">
+                        {blogPosts[0].title}
+                      </h2>
+                      <p className="text-muted-foreground text-base font-medium mb-8 leading-relaxed">
+                        {blogPosts[0].excerpt}
+                      </p>
 
-                  <div className="flex flex-wrap items-center gap-6 mb-8">
-                    <div className="flex items-center gap-2">
-                      <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center font-black text-primary text-sm">C</div>
-                      <div>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Words by</p>
-                        <p className="text-xs font-bold text-foreground">{blogPosts[0].author}</p>
+                      <div className="flex flex-wrap items-center gap-6 mb-8">
+                        <div className="flex items-center gap-2">
+                          <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center font-black text-primary text-sm">C</div>
+                          <div>
+                            <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">By</p>
+                            <p className="text-xs font-bold text-foreground">{blogPosts[0].author}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 bg-secondary/50 px-3 py-2 rounded-xl">
+                          <Calendar className="w-4 h-4 text-primary" />
+                          <span className="text-xs font-bold">{formatDate(blogPosts[0].date)}</span>
+                          <div className="w-1 h-1 rounded-full bg-border mx-1" />
+                          <Clock className="w-4 h-4 text-primary" />
+                          <span className="text-xs font-bold">{blogPosts[0].readTime}</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2 bg-secondary/50 px-3 py-2 rounded-xl">
-                      <Calendar className="w-4 h-4 text-primary" />
-                      <span className="text-xs font-bold">{formatDate(blogPosts[0].date)}</span>
-                      <div className="w-1 h-1 rounded-full bg-border mx-1" />
-                      <Clock className="w-4 h-4 text-primary" />
-                      <span className="text-xs font-bold">{blogPosts[0].readTime}</span>
-                    </div>
-                  </div>
 
-                  <Button size="lg" className="h-14 px-8 rounded-2xl w-fit font-black text-sm group/btn shadow-lg shadow-primary/20">
-                    Read Complete Feature
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-2 transition-transform" />
-                  </Button>
+                      <Button size="lg" className="h-14 px-8 rounded-2xl w-fit font-black text-sm group/btn shadow-lg shadow-primary/20">
+                        Read Full Article
+                        <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-2 transition-transform" />
+                      </Button>
+                    </>
+                  ) : (
+                    <div className="h-64 flex items-center justify-center">
+                      <p className="text-muted-foreground font-bold italic">Loading latest editorial...</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -261,7 +263,7 @@ const Blog = () => {
                     </div>
                     <Link to={`/blog/${post.id}`}>
                       <Button variant="ghost" size="sm" className="font-black text-[9px] uppercase tracking-widest text-primary hover:text-primary hover:bg-primary/10 rounded-lg px-3 group/i h-8">
-                        Explore
+                        Read More
                         <ArrowRight className="w-3 h-3 ml-1 group-hover/i:translate-x-1 transition-transform" />
                       </Button>
                     </Link>

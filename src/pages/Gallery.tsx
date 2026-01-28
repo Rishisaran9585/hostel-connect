@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import { X, ChevronLeft, ChevronRight, Camera, Maximize2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,7 @@ interface GalleryImage {
   category: 'meetings' | 'events' | 'achievements';
 }
 
-const galleryImages: GalleryImage[] = [
+const initialGalleryImages: GalleryImage[] = [
   { id: 1, src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800', title: 'Annual General Meeting 2023', category: 'meetings' },
   { id: 2, src: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800', title: 'Executive Committee Session', category: 'meetings' },
   { id: 3, src: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800', title: 'Member Networking Event', category: 'events' },
@@ -35,7 +35,7 @@ const categories = [
 ];
 
 const Gallery = () => {
-  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>(initialGalleryImages);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);

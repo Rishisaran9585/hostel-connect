@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Members from "./pages/Members";
@@ -21,6 +21,11 @@ import AdminRoute from './components/admin/AdminRoute';
 
 const queryClient = new QueryClient();
 
+const AdminRedirect = () => {
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  return <Navigate to={isAdmin ? "/admin/dashboard" : "/admin/login"} replace />;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -37,7 +42,7 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
 
-          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminRedirect />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={
             <AdminRoute>

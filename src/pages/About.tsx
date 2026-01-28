@@ -84,7 +84,7 @@ const About = () => {
   return (
     <Layout>
       {/* Premium Hero Section */}
-      <section className="py-24 hero-gradient relative overflow-hidden">
+      <section className="py-16 hero-gradient relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.1]">
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -93,13 +93,13 @@ const About = () => {
 
         <div className="container mx-auto px-4 relative z-10 text-center">
           <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-1.5 mb-8 backdrop-blur-md font-black uppercase tracking-widest text-[10px]">
-            Our Institutional Legacy
+            Our History
           </Badge>
-          <h1 className="text-4xl md:text-7xl font-black text-white mb-8 tracking-tight max-w-5xl mx-auto leading-tight">
-            Architecting the <span className="text-white/80">Future of Residency</span>
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight max-w-5xl mx-auto leading-tight">
+            Building the <span className="text-white/80">Future of Hostels</span>
           </h1>
           <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium">
-            Advocating for the rights, safety, and sustainable growth of the Tamil Nadu hostel ecosystem through institutional excellence since 2017.
+            We help hostel owners grow safely and legally across Tamil Nadu since 2017.
           </p>
         </div>
 
@@ -117,14 +117,14 @@ const About = () => {
                 <span>Established March 2017</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-foreground mb-8 tracking-tight leading-tight">
-                Architecting a <br /><span className="text-primary/80">Professional Future</span>
+                Our <br /><span className="text-primary/80">Story</span>
               </h2>
               <div className="space-y-6 text-muted-foreground text-lg leading-relaxed font-medium">
                 <p>
-                  The Coimbatore Hostel Owner Association (CHOA) was founded with a singular, powerful objective: transform a fragmented sector into a unified industrial body.
+                  CHOA was started to bring all hostel owners together as one strong team.
                 </p>
                 <p>
-                  Today, we serve as the primary interface between 300+ visionary owners and the legislative bodies of Tamil Nadu, ensuring institutional victories for the hostel business.
+                  Today, we work with over 300 owners to solve common problems and deal with government rules together.
                 </p>
               </div>
 
@@ -151,7 +151,7 @@ const About = () => {
                   <div className="w-24 h-24 rounded-2xl hero-gradient flex items-center justify-center mb-8 shadow-2xl shadow-primary/30 transition-transform hover:scale-110 duration-700">
                     <span className="text-white font-black text-5xl">C</span>
                   </div>
-                  <h3 className="text-2xl font-black text-foreground mb-4">Institutional Agency</h3>
+                  <h3 className="text-2xl font-black text-foreground mb-4">Registered Association</h3>
                   <div className="px-8 py-3 bg-white rounded-2xl shadow-xl shadow-primary/5 border border-primary/10">
                     <p className="text-5xl font-black text-primary tracking-tighter leading-none">63/2017</p>
                   </div>
@@ -173,11 +173,11 @@ const About = () => {
                 <span>Solutions Portfolio</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-foreground tracking-tight leading-tight">
-                Tailored Professional <br />Systems & Services
+                How We <br />Help You
               </h2>
             </div>
             <p className="text-muted-foreground text-lg font-medium max-w-sm mb-2 border-l-2 border-primary/20 pl-6">
-              Strategically engineered to handle regulatory friction so you can focus on resident experience.
+              We handle the legal paperwork so you can focus on your guests.
             </p>
           </div>
 
@@ -218,7 +218,7 @@ const About = () => {
                 </div>
 
                 <Button variant="ghost" className="mt-8 -ml-3 group/btn font-black uppercase tracking-widest text-[9px] text-primary gap-2 h-10">
-                  Request Intelligence
+                  Learn More
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1.5 transition-transform" />
                 </Button>
               </div>

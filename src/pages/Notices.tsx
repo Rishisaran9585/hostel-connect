@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Bell, Calendar, AlertTriangle, Download, ChevronRight, Filter, Search, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -16,28 +17,28 @@ interface Notice {
   attachmentName?: string;
 }
 
-const notices: Notice[] = [
+const initialNotices: Notice[] = [
   {
     id: 1,
-    title: 'Annual General Meeting 2024: Primary Assembly',
+    title: 'Annual Meeting 2024',
     category: 'Strategic',
-    content: 'Formal convocation for the 2024 assembly of hostel entrepreneurs. Key agenda includes the ratification of new fire safety mandates and executive committee elections.',
+    content: 'All hostel owners are invited to our 2024 meeting. we will talk about new fire safety rules and elect our team leaders.',
     date: '2024-01-28',
     isUrgent: true,
   },
   {
     id: 2,
-    title: 'Statutory Fire Safety Compliance: Deadline Extension',
+    title: 'Fire Safety Rules: More Time Given',
     category: 'Compliance',
-    content: 'The regulatory deadline for the 2024 Fire Safety Audit has been strategically extended. Members must finalize certifications to avoid license interruption.',
+    content: 'The deadline for fire safety checks has been moved. Please finish your checks soon to keep your license active.',
     date: '2024-01-25',
     isUrgent: true,
   },
   {
     id: 3,
-    title: 'Masterclass: Navigating GST Policy for Hostels',
+    title: 'Help with GST for Hostels',
     category: 'Operational',
-    content: 'An exclusive technical session regarding the recent statewide tax exemptions secured by CHOA advocacy. Recommended for all financial representatives.',
+    content: 'A helpful session on new tax rules for hostels. We will explain how to save on taxes.',
     date: '2024-01-20',
     isUrgent: false,
   },
@@ -88,17 +89,8 @@ const formatDate = (dateString: string) => {
   });
 };
 
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-IN', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-};
-
 const Notices = () => {
-  const [notices, setNotices] = useState<Notice[]>([]);
+  const [notices, setNotices] = useState<Notice[]>(initialNotices);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -139,13 +131,13 @@ const Notices = () => {
 
         <div className="container mx-auto px-4 relative z-10 text-center">
           <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-1.5 mb-8 backdrop-blur-md font-black uppercase tracking-widest text-[10px]">
-            Official Registry
+            Notice Board
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight max-w-4xl mx-auto leading-tight">
-            Critical <span className="text-white/80">Directives</span> & News
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight max-w-4xl mx-auto leading-tight">
+            News & <span className="text-white/80">Updates</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed font-medium">
-            The authoritative bulletin for Tamil Nadu hostel owners. Updated in real-time with legislative and administrative alerts.
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed font-medium">
+            Keep up with the latest news and rule changes for hostels in Tamil Nadu.
           </p>
         </div>
       </section>
@@ -163,7 +155,7 @@ const Notices = () => {
                   <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
                     <Bell className="w-5 h-5" />
                   </div>
-                  <h3 className="text-xl font-black text-foreground">Board Summary</h3>
+                  <h3 className="text-xl font-black text-foreground">Summary</h3>
                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center pb-3 border-b border-border/50">
@@ -183,7 +175,7 @@ const Notices = () => {
 
               {/* High Priority Feature List */}
               <div className="space-y-3">
-                <h4 className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-4 mb-2">Priority Directives</h4>
+                <h4 className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-4 mb-2">Urgent News</h4>
                 {urgentNotices.map((notice, index) => (
                   <div key={notice.id} className="group p-5 rounded-xl bg-red-500/5 border border-red-500/10 hover:bg-red-500 hover:text-white transition-all duration-500 cursor-pointer">
                     <div className="flex gap-3 items-start">
@@ -212,7 +204,7 @@ const Notices = () => {
                 </div>
                 <Button variant="ghost" className="h-14 px-8 rounded-2xl gap-2 font-bold text-muted-foreground">
                   <Filter className="w-5 h-5" />
-                  Filter Feed
+                  Filter
                 </Button>
               </div>
 
@@ -244,7 +236,7 @@ const Notices = () => {
                         </div>
                         {notice.isUrgent && (
                           <Badge className="bg-red-500 text-white border-none py-0.5 text-[9px] group/u animate-pulse">
-                            Action Required
+                            Urgent
                           </Badge>
                         )}
                       </div>
@@ -266,7 +258,7 @@ const Notices = () => {
                         ) : (
                           <div className="flex items-center gap-2 text-muted-foreground">
                             <Info className="w-4 h-4" />
-                            <span className="text-[9px] font-black uppercase tracking-widest">Digital Bulletin Only</span>
+                            <span className="text-[9px] font-black uppercase tracking-widest">Read Online</span>
                           </div>
                         )}
 
@@ -284,11 +276,11 @@ const Notices = () => {
                 <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='white'/%3E%3C/svg%3E')]" />
                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
                   <div className="max-w-md text-white">
-                    <h4 className="text-3xl font-black mb-4 leading-tight">SMS Alert Subscription</h4>
-                    <p className="text-white/80 font-medium">Get critical government directives delivered directly to your verified phone number.</p>
+                    <h4 className="text-3xl font-black mb-4 leading-tight">Get SMS Alerts</h4>
+                    <p className="text-white/80 font-medium">Never miss a change in rules. Get alerts on your phone.</p>
                   </div>
                   <Button size="xl" className="h-20 px-12 rounded-[2rem] bg-white text-primary font-black text-lg shadow-2xl transition-all hover:scale-105 active:scale-95">
-                    Enable Mobile Alerts
+                    Sign Up for Alerts
                   </Button>
                 </div>
               </div>

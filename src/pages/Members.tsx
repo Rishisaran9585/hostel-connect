@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Search, Phone, Building, ChevronDown, User, Mail, ShieldCheck, MapPin, Users, ArrowUpRight, ExternalLink } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -20,100 +20,7 @@ interface Member {
   email?: string;
 }
 
-const membersData: Member[] = [
-  // Founders
-  {
-    id: 1,
-    name: 'Mr. Rajesh Kumar',
-    designation: 'Founder & President',
-    hostelName: 'Sri Lakshmi Mens Hostel',
-    phone: '9047747633',
-    category: 'founders',
-    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=500&auto=format&fit=crop',
-    email: 'rajesh.kumar@hostelconnect.com'
-  },
-  {
-    id: 2,
-    name: 'Mr. Suresh Babu',
-    designation: 'Founder & Vice President',
-    hostelName: 'Kavitha Womens Hostel',
-    phone: '9876543210',
-    category: 'founders',
-    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=500&auto=format&fit=crop',
-    email: 'suresh.babu@hostelconnect.com'
-  },
-  {
-    id: 3,
-    name: 'Mr. Venkatesh R',
-    designation: 'Founder & Secretary',
-    hostelName: 'Coimbatore Premier Hostel',
-    phone: '9876543211',
-    category: 'founders',
-    photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=500&auto=format&fit=crop',
-    email: 'venkatesh.r@hostelconnect.com'
-  },
-
-  // Board Members
-  {
-    id: 4,
-    name: 'Mrs. Lakshmi Devi',
-    designation: 'Treasurer',
-    hostelName: 'Devi Womens Hostel',
-    phone: '9876543212',
-    category: 'board',
-    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=500&auto=format&fit=crop'
-  },
-  {
-    id: 5,
-    name: 'Mr. Anand Kumar',
-    designation: 'Joint Secretary',
-    hostelName: 'Anand Mens Hostel',
-    phone: '9876543213',
-    category: 'board',
-    photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=500&auto=format&fit=crop'
-  },
-  {
-    id: 6,
-    name: 'Mr. Prakash S',
-    designation: 'Board Member',
-    hostelName: 'Prakash Student Home',
-    phone: '9876543214',
-    category: 'board',
-    photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&h=500&auto=format&fit=crop'
-  },
-  {
-    id: 7,
-    name: 'Mrs. Meena R',
-    designation: 'Board Member',
-    hostelName: 'Meena Ladies Hostel',
-    phone: '9876543215',
-    category: 'board',
-    photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&h=500&auto=format&fit=crop'
-  },
-
-  // Executive Committee
-  { id: 8, name: 'Mr. Ganesh K', designation: 'Executive Member', hostelName: 'Ganesh Boys Hostel', phone: '9876543216', category: 'executive', photo: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=400&h=500&auto=format&fit=crop' },
-  { id: 9, name: 'Mr. Kumar S', designation: 'Executive Member', hostelName: 'Kumar Student Hostel', phone: '9876543217', category: 'executive', photo: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&h=500&auto=format&fit=crop' },
-  { id: 10, name: 'Mrs. Priya V', designation: 'Executive Member', hostelName: 'Priya Womens Home', phone: '9876543218', category: 'executive', photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&h=500&auto=format&fit=crop' },
-  { id: 11, name: 'Mr. Mohan R', designation: 'Executive Member', hostelName: 'Mohan PG Hostel', phone: '9876543219', category: 'executive', photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=500&auto=format&fit=crop' },
-
-  // Zonal Heads
-  { id: 12, name: 'Mr. Selvam K', designation: 'Zonal Head', hostelName: 'Selvam Mens Hostel', phone: '9876543220', category: 'zonal', zone: 'Coimbatore', photo: 'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=400&h=500&auto=format&fit=crop' },
-  { id: 13, name: 'Mr. Ravi Kumar', designation: 'Zonal Head', hostelName: 'Ravi Student Hostel', phone: '9876543221', category: 'zonal', zone: 'Salem', photo: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=400&h=500&auto=format&fit=crop' },
-  { id: 14, name: 'Mrs. Geetha S', designation: 'Zonal Head', hostelName: 'Geetha Ladies Hostel', phone: '9876543222', category: 'zonal', zone: 'Trichy', photo: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=400&h=500&auto=format&fit=crop' },
-  { id: 15, name: 'Mr. Bala K', designation: 'Zonal Head', hostelName: 'Bala Hostel', phone: '9876543223', category: 'zonal', zone: 'Erode', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=500&auto=format&fit=crop' },
-  { id: 16, name: 'Mr. Senthil R', designation: 'Zonal Head', hostelName: 'Senthil PG Home', phone: '9876543224', category: 'zonal', zone: 'Tiruppur', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=500&auto=format&fit=crop' },
-
-  // General Members
-  { id: 17, name: 'Mr. Arun Kumar', hostelName: 'Arun Boys Hostel', phone: '9876543225', category: 'general' },
-  { id: 18, name: 'Mrs. Sundari M', hostelName: 'Sundari Womens Hostel', phone: '9876543226', category: 'general' },
-  { id: 19, name: 'Mr. Karthik S', hostelName: 'Karthik Student Home', phone: '9876543227', category: 'general' },
-  { id: 20, name: 'Mr. Vijay R', hostelName: 'Vijay Mens PG', phone: '9876543228', category: 'general' },
-  { id: 21, name: 'Mrs. Revathi K', hostelName: 'Revathi Ladies Home', phone: '9876543229', category: 'general' },
-  { id: 22, name: 'Mr. Dinesh P', hostelName: 'Dinesh Hostel', phone: '9876543230', category: 'general' },
-  { id: 23, name: 'Mr. Murali K', hostelName: 'Murali Student Hostel', phone: '9876543231', category: 'general' },
-  { id: 24, name: 'Mrs. Kavitha R', hostelName: 'Kavitha PG Home', phone: '9876543232', category: 'general' },
-];
+const initialMembers: Member[] = [];
 
 const categoryLabels: Record<MemberCategory, string> = {
   founders: 'Visionary Founders',
@@ -137,14 +44,15 @@ const Members = () => {
       try {
         const response = await fetch('http://localhost/hostel-connect/backend/api/members.php');
         const data = await response.json();
-        // Transform API data to match Member interface
+
         const transformedData: Member[] = data.map((item: any) => ({
           id: parseInt(item.id),
           name: item.name,
           designation: item.role,
-          hostelName: 'Hostel Name', // Placeholder as it's not in DB yet
+          hostelName: item.hostel_name || 'Associated Hostel',
           phone: item.phone,
-          category: 'general', // Default to general as it's not in DB yet
+          photo: item.photo,
+          category: (item.category as MemberCategory) || 'general',
           email: item.email
         }));
         setMembers(transformedData);
@@ -190,13 +98,13 @@ const Members = () => {
 
         <div className="container mx-auto px-4 relative z-10 text-center">
           <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-1.5 mb-8 backdrop-blur-md font-black uppercase tracking-widest text-[10px]">
-            Professional Network
+            Our Network
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight max-w-4xl mx-auto leading-tight">
-            Our Council of <span className="text-white/80">Proprietors</span>
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight max-w-4xl mx-auto leading-tight">
+            Our <span className="text-white/80">Members</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed font-medium">
-            The collective strength of 300+ visionary owners driving the future of the Tamil Nadu hostel industry.
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed font-medium">
+            A group of over 300 hostel owners working together for a better future.
           </p>
         </div>
       </section>
@@ -237,17 +145,17 @@ const Members = () => {
                   onClick={() => toggleCategory(category)}
                 >
                   <div className="flex items-start gap-8">
-                    <div className="w-20 h-20 rounded-[2rem] hero-gradient flex items-center justify-center shadow-2xl shadow-primary/20 text-white relative group-hover:scale-110 transition-all duration-500">
-                      {isGeneral ? <Users className="w-9 h-9" /> : <ShieldCheck className="w-9 h-9" />}
-                      <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-2xl bg-white flex items-center justify-center text-primary text-xs font-black shadow-lg">
+                    <div className="w-16 h-16 rounded-2xl hero-gradient flex items-center justify-center shadow-xl shadow-primary/20 text-white relative group-hover:scale-110 transition-all duration-500">
+                      {isGeneral ? <Users className="w-7 h-7" /> : <ShieldCheck className="w-7 h-7" />}
+                      <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-xl bg-white flex items-center justify-center text-primary text-[10px] font-black shadow-lg">
                         {members.length}
                       </div>
                     </div>
                     <div>
-                      <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-2">{categoryLabels[category]}</h2>
+                      <h2 className="text-2xl md:text-3xl font-black text-foreground tracking-tight mb-1">{categoryLabels[category]}</h2>
                       <div className="flex items-center gap-2 text-primary font-black uppercase tracking-[0.2em] text-[10px]">
                         <div className="w-8 h-[2px] bg-primary" />
-                        <span>Official Committee Members</span>
+                        <span>Main Team Members</span>
                       </div>
                     </div>
                   </div>
@@ -267,53 +175,64 @@ const Members = () => {
                         key={member.id}
                         className="group bg-secondary/30 rounded-[2rem] overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
                       >
-                        {/* Profile Image - Reduced Size */}
-                        <div className="aspect-square overflow-hidden bg-secondary/50">
-                          <img
-                            src={member.photo || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400'}
-                            alt={member.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                          />
+                        {/* Compact Modern Image */}
+                        <div className="aspect-[4/3] overflow-hidden bg-white/5 relative">
+                          {member.photo ? (
+                            <img
+                              src={`http://localhost/hostel-connect/backend/${member.photo}`}
+                              alt={member.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex flex-col items-center justify-center bg-primary/5 text-primary">
+                              <User className="w-10 h-10 opacity-20" />
+                              <span className="text-xl font-black mt-1">{member.name[0]}</span>
+                            </div>
+                          )}
                         </div>
 
-                        {/* Card Content */}
-                        <div className="p-6">
+                        {/* Compact Card Content */}
+                        <div className="p-5">
                           {/* Name */}
-                          <h3 className="text-lg font-black text-foreground leading-tight mb-2">
+                          <h3 className="text-base font-black text-foreground leading-tight mb-1 group-hover:text-primary transition-colors">
                             {member.name}
                           </h3>
 
-                          {/* Conditional Content Based on Member Type */}
+                          {/* Details */}
                           {!isGeneral ? (
-                            // Executive Members: Show designation, hostel name, and contact
                             <>
                               {member.designation && (
-                                <p className="text-sm text-primary font-bold mb-2">
+                                <p className="text-[10px] text-primary font-black uppercase tracking-widest mb-1">
                                   {member.designation}
                                 </p>
                               )}
-                              <p className="text-xs text-muted-foreground font-medium mb-3 line-clamp-1">
+                              <p className="text-[9px] text-muted-foreground font-bold mb-3 flex items-center gap-1 opacity-70">
+                                <Building className="w-2.5 h-2.5" />
                                 {member.hostelName}
                               </p>
                               <a
                                 href={`tel:${member.phone}`}
                                 className="flex items-center gap-2 text-xs font-bold text-foreground hover:text-primary transition-colors"
                               >
-                                <Phone className="w-3.5 h-3.5" />
+                                <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                  <Phone className="w-3.5 h-3.5" />
+                                </div>
                                 <span>{member.phone}</span>
                               </a>
                             </>
                           ) : (
-                            // Regular Members: Show only hostel name and contact
                             <>
-                              <p className="text-sm text-muted-foreground font-medium mb-3 line-clamp-2">
+                              <p className="text-[9px] text-muted-foreground font-bold mb-3 flex items-center gap-1 opacity-70">
+                                <Building className="w-3 h-3 text-primary/40" />
                                 {member.hostelName}
                               </p>
                               <a
                                 href={`tel:${member.phone}`}
                                 className="flex items-center gap-2 text-xs font-bold text-foreground hover:text-primary transition-colors"
                               >
-                                <Phone className="w-3.5 h-3.5" />
+                                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                  <Phone className="w-4 h-4" />
+                                </div>
                                 <span>{member.phone}</span>
                               </a>
                             </>

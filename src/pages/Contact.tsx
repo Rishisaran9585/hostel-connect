@@ -39,15 +39,15 @@ const Contact = () => {
     },
     {
       icon: Phone,
-      title: 'Direct Helpline',
-      details: ['+91 90477 47633', 'Assistance for existing members'],
+      title: 'Call Us',
+      details: ['+91 90477 47633', 'We are here to help'],
       action: { type: 'tel', value: '9047747633' },
       tag: 'Available 24/7'
     },
     {
       icon: Mail,
-      title: 'Official Email',
-      details: ['info@coimbatorehostels.com', 'For licensing & registration'],
+      title: 'Email Us',
+      details: ['info@coimbatorehostels.com', 'For any questions'],
       action: { type: 'mailto', value: 'info@coimbatorehostels.com' },
       tag: 'Verified Source'
     },
@@ -62,7 +62,7 @@ const Contact = () => {
   return (
     <Layout>
       {/* Premium Hero */}
-      <section className="py-24 hero-gradient relative overflow-hidden">
+      <section className="py-16 hero-gradient relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.15]">
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -77,11 +77,11 @@ const Contact = () => {
           <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-1.5 mb-8 backdrop-blur-md">
             Connect With Us
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight max-w-4xl mx-auto leading-tight">
-            Empowering Your Vision Through <span className="text-white/80">Support</span>
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight max-w-4xl mx-auto leading-tight">
+            We are here to <span className="text-white/80">Help You</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-            Whether you're starting a new hostel or looking for protective advocacy, we are here to assist you at every step.
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+            Whether you are starting a new hostel or need help with rules, we are here to support you at every step.
           </p>
         </div>
       </section>
@@ -150,9 +150,9 @@ const Contact = () => {
                 <div className="relative z-10 mb-12">
                   <div className="inline-flex items-center gap-2 mb-4 text-primary font-black uppercase tracking-[0.2em] text-[10px]">
                     <MessageSquare className="w-4 h-4" />
-                    <span>Interactive Inquiry Form</span>
+                    <span>Send us a message</span>
                   </div>
-                  <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">Send a <span className="text-primary">Formal Message</span></h2>
+                  <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">Write to <span className="text-primary">Our Team</span></h2>
                 </div>
 
                 <form onSubmit={handleSubmit} className="relative z-10 space-y-8">
@@ -228,7 +228,7 @@ const Contact = () => {
                     />
                   </div>
                   <Button type="submit" size="xl" className="w-full sm:w-auto h-16 px-12 rounded-2xl font-black group shadow-xl shadow-primary/20">
-                    Dispatch Message
+                    Send Message
                     <Send className="w-6 h-6 ml-3 group-hover:translate-x-1.5 group-hover:-translate-y-1 transition-transform" />
                   </Button>
                 </form>

@@ -5,10 +5,10 @@ import { Badge } from '@/components/ui/badge';
 
 const AboutSnapshot = () => {
   const highlights = [
-    { icon: ShieldCheck, text: 'Regulatory Shield', subtext: 'Policy Level Advocacy' },
-    { icon: Scale, text: 'Legal Framework', subtext: 'Institutional Security' },
-    { icon: History, text: '7-Year Legacy', subtext: 'Profound Experience' },
-    { icon: Zap, text: 'Market Intel', subtext: 'Strategic Intelligence' },
+    { icon: ShieldCheck, text: 'Government Help', subtext: 'Dealing with Rules' },
+    { icon: Scale, text: 'Legal Support', subtext: 'Legal Protection' },
+    { icon: History, text: '7 Years Experience', subtext: 'Trusted by Many' },
+    { icon: Zap, text: 'Business Growth', subtext: 'Smart Advice' },
   ];
 
   return (
@@ -24,13 +24,13 @@ const AboutSnapshot = () => {
             <div>
               <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.2em] text-[10px] mb-6">
                 <div className="w-8 h-[2px] bg-primary" />
-                <span>Institutional Profile</span>
+                <span>About Our Group</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-foreground mt-2 mb-6 leading-[1.1] tracking-tight">
-                The Definitive <br /><span className="text-primary/80">Voice of Authority</span>
+                A Strong Voice <br /><span className="text-primary/80">for Owners</span>
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed font-medium max-w-xl">
-                The Coimbatore Hostel Owner Association (CHOA) is the architect of the modern residency framework in Tamil Nadu. We represent the collective intelligence and interests of 300+ visionary owners.
+                CHOA helps hostel owners in Tamil Nadu work together. We represent over 300 owners and speak up for their needs.
               </p>
             </div>
 
@@ -55,7 +55,7 @@ const AboutSnapshot = () => {
             <div className="flex flex-wrap items-center gap-6 pt-4">
               <Link to="/about">
                 <Button size="xl" className="h-14 px-8 rounded-xl font-black group shadow-xl shadow-primary/20 bg-primary hover:scale-105 transition-all text-base">
-                  Our Institutional Story
+                  Read Our Story
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" />
                 </Button>
               </Link>
@@ -71,7 +71,7 @@ const AboutSnapshot = () => {
                     +300
                   </div>
                 </div>
-                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground px-1">Verified Proprietors</span>
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground px-1">Verified Members</span>
               </div>
             </div>
           </div>
@@ -87,12 +87,12 @@ const AboutSnapshot = () => {
                   <div className="w-24 h-24 rounded-[2rem] hero-gradient flex items-center justify-center mx-auto mb-8 shadow-2xl rotate-12 group-hover:rotate-0 transition-all duration-1000">
                     <span className="text-white font-black text-5xl leading-none">C</span>
                   </div>
-                  <h3 className="text-2xl font-black text-foreground mb-4 leading-tight">Elite Registry</h3>
+                  <h3 className="text-2xl font-black text-foreground mb-4 leading-tight">Member List</h3>
                   <p className="text-muted-foreground text-base font-medium mb-8 leading-relaxed">
-                    Setting the industrial standard for premium residency across Tamil Nadu through legislative innovation.
+                    Making hostels better for everyone in Tamil Nadu through teamwork and shared rules.
                   </p>
                   <div className="flex flex-col gap-6">
-                    <p className="text-xs font-black text-foreground uppercase tracking-[0.2em]">Deployment Sectors</p>
+                    <p className="text-xs font-black text-foreground uppercase tracking-[0.2em]">Our Services</p>
                     <div className="flex gap-4">
                       <Badge className="bg-primary/10 text-primary border-none rounded-xl font-black py-2 px-4 shadow-sm">MEN'S</Badge>
                       <Badge className="bg-emerald-500/10 text-emerald-600 border-none rounded-xl font-black py-2 px-4 shadow-sm">WOMEN'S</Badge>
