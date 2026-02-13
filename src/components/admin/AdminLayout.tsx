@@ -16,10 +16,32 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
+
+    // Sync sidebar state on mount and resize
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1024) {
+                setIsSidebarOpen(true);
+            } else {
+                setIsSidebarOpen(false);
+            }
+        };
+
+        handleResize(); // Initial check
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    // Close sidebar on mobile when route changes
+    useEffect(() => {
+        if (window.innerWidth < 1024) {
+            setIsSidebarOpen(false);
+        }
+    }, [location]);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -32,7 +54,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         { name: 'Members', href: '/admin/members', icon: Users },
         { name: 'Blogs', href: '/admin/blog', icon: FileText },
         { name: 'Notices', href: '/admin/notices', icon: Bell },
-        { name: 'Photos', href: '/admin/gallery', icon: ImageIcon },
+        { name: 'Gallery', href: '/admin/gallery', icon: ImageIcon },
     ];
 
     const handleLogout = () => {
@@ -45,6 +67,14 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <div className="min-h-screen bg-[#f8fafc] text-slate-600 font-sans">
+            {/* Mobile Backdrop */}
+            {isSidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 lg:hidden transition-all duration-300"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
             <aside
                 className={cn(
@@ -54,7 +84,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                 )}
             >
                 <div className="flex flex-col h-full">
-                    <div className="px-6 py-8">
+                    <div className="px-6 py-8 flex items-center justify-between">
                         <Link to="/" className="flex items-center gap-3">
                             <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center shadow-lg">
                                 <span className="text-white font-bold text-lg">H</span>
@@ -64,6 +94,12 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                                 <p className="text-[11px] text-slate-500 font-medium mt-1">Hostel Connect</p>
                             </div>
                         </Link>
+                        <button
+                            className="lg:hidden p-2 text-slate-400 hover:text-slate-600"
+                            onClick={() => setIsSidebarOpen(false)}
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
                     </div>
 
                     <nav className="flex-1 px-4 space-y-1">
@@ -129,29 +165,11 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                                className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary transition-all shadow-sm"
+                                className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
                             >
-                                {isSidebarOpen ? <X size={18} /> : <Menu size={18} />}
+                                {isSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                             </button>
                             <h2 className="text-lg font-bold text-slate-900 tracking-tight">{currentPage.name}</h2>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <div className="hidden md:flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-xl">
-                                <Search className="w-4 h-4 text-slate-400" />
-                                <input
-                                    type="text"
-                                    placeholder="Search..."
-                                    className="bg-transparent border-none text-sm font-medium text-slate-600 focus:outline-none placeholder:text-slate-400 w-40"
-                                />
-                            </div>
-                            <Button variant="ghost" size="icon" className="w-10 h-10 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-primary">
-                                <Settings size={18} />
-                            </Button>
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary relative">
-                                <Bell size={18} />
-                                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-rose-500 rounded-full border-2 border-white" />
-                            </div>
                         </div>
                     </div>
                 </header>

@@ -31,11 +31,20 @@ if (!isset($conn) || $conn->connect_error) {
     exit();
 }
 
+// Ensure the blog_posts table has an image_url column
+$conn->query("ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS image_url VARCHAR(255) AFTER author");
+
 $method = $_SERVER['REQUEST_METHOD'];
+$uploadDir = '../uploads/blog/';
+
+// Create upload directory if it doesn't exist
+if (!file_exists($uploadDir)) {
+    mkdir($uploadDir, 0777, true);
+}
 
 switch ($method) {
     case 'GET':
-        $sql = "SELECT id, title, content, author, created_at FROM blog_posts ORDER BY created_at DESC";
+        $sql = "SELECT id, title, content, author, image_url, created_at FROM blog_posts ORDER BY created_at DESC";
         $result = $conn->query($sql);
         $posts = [];
         if ($result && $result->num_rows > 0) {
@@ -47,30 +56,65 @@ switch ($method) {
         break;
 
     case 'POST':
-        $data = json_decode(file_get_contents("php://input"));
+        // Handle multipart/form-data for image upload OR JSON for backward compatibility
+        if (isset($_POST['title']) && isset($_POST['content']) && isset($_POST['author'])) {
+            // Multipart upload
+            $title = $conn->real_escape_string($_POST['title']);
+            $content = $conn->real_escape_string($_POST['content']);
+            $author = $conn->real_escape_string($_POST['author']);
+            $dbPath = '';
 
-        if (!empty($data->title) && !empty($data->content) && !empty($data->author)) {
-            $title = $conn->real_escape_string($data->title);
-            $content = $conn->real_escape_string($data->content);
-            $author = $conn->real_escape_string($data->author);
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9._-]/", "_", basename($_FILES["image"]["name"]));
+                $targetFilePath = $uploadDir . $fileName;
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
+                    $dbPath = 'uploads/blog/' . $fileName;
+                }
+            }
 
-            $sql = "INSERT INTO blog_posts (title, content, author) VALUES ('$title', '$content', '$author')";
+            $sql = "INSERT INTO blog_posts (title, content, author, image_url) VALUES ('$title', '$content', '$author', '$dbPath')";
 
             if ($conn->query($sql) === TRUE) {
-                echo json_encode(["success" => true, "message" => "Post created successfully", "id" => $conn->insert_id]);
+                echo json_encode(["success" => true, "message" => "Post created successfully", "id" => $conn->insert_id, "image_url" => $dbPath]);
             } else {
                 http_response_code(500);
                 echo json_encode(["success" => false, "message" => "Database Error: " . $conn->error]);
             }
         } else {
-            http_response_code(400);
-            echo json_encode(["success" => false, "message" => "Incomplete data. Please provide title, content and author."]);
+            // JSON fallback
+            $data = json_decode(file_get_contents("php://input"));
+            if (!empty($data->title) && !empty($data->content) && !empty($data->author)) {
+                $title = $conn->real_escape_string($data->title);
+                $content = $conn->real_escape_string($data->content);
+                $author = $conn->real_escape_string($data->author);
+
+                $sql = "INSERT INTO blog_posts (title, content, author) VALUES ('$title', '$content', '$author')";
+
+                if ($conn->query($sql) === TRUE) {
+                    echo json_encode(["success" => true, "message" => "Post created successfully", "id" => $conn->insert_id]);
+                } else {
+                    http_response_code(500);
+                    echo json_encode(["success" => false, "message" => "Database Error: " . $conn->error]);
+                }
+            } else {
+                http_response_code(400);
+                echo json_encode(["success" => false, "message" => "Incomplete data."]);
+            }
         }
         break;
 
     case 'DELETE':
         if (isset($_GET['id'])) {
             $id = $conn->real_escape_string($_GET['id']);
+            
+            // Delete image file first
+            $res = $conn->query("SELECT image_url FROM blog_posts WHERE id = '$id'");
+            if ($res && $row = $res->fetch_assoc()) {
+                if (!empty($row['image_url']) && file_exists('../' . $row['image_url'])) {
+                    unlink('../' . $row['image_url']);
+                }
+            }
+
             $sql = "DELETE FROM blog_posts WHERE id = '$id'";
 
             if ($conn->query($sql) === TRUE) {

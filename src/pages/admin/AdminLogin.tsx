@@ -4,6 +4,8 @@ import { Shield, Lock, User, ArrowRight, Loader2, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+import { API_BASE_URL } from '@/config';
+
 const AdminLogin = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -24,7 +26,7 @@ const AdminLogin = () => {
         setError('');
 
         try {
-            const response = await fetch('http://localhost/hostel-connect/backend/api/login.php', {
+            const response = await fetch(`${API_BASE_URL}/login.php`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

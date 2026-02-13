@@ -4,6 +4,7 @@ import { Trash2, Upload, X, Search, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { API_BASE_URL, BACKEND_URL } from '@/config';
 
 interface GalleryItem {
     id: number;
@@ -30,7 +31,7 @@ const GalleryManager = () => {
 
     const fetchGallery = async () => {
         try {
-            const response = await fetch('http://localhost/hostel-connect/backend/api/gallery.php');
+            const response = await fetch(`${API_BASE_URL}/gallery.php`);
             const data = await response.json();
             setGallery(Array.isArray(data) ? data : []);
             setLoading(false);
@@ -44,7 +45,7 @@ const GalleryManager = () => {
     const handleDelete = async (id: number) => {
         if (confirm('Are you sure you want to delete this image?')) {
             try {
-                const response = await fetch(`http://localhost/hostel-connect/backend/api/gallery.php?id=${id}`, {
+                const response = await fetch(`${API_BASE_URL}/gallery.php?id=${id}`, {
                     method: 'DELETE',
                 });
                 if (response.ok) {
@@ -71,7 +72,7 @@ const GalleryManager = () => {
         setUploadLoading(true);
 
         try {
-            const response = await fetch('http://localhost/hostel-connect/backend/api/gallery.php', {
+            const response = await fetch(`${API_BASE_URL}/gallery.php`, {
                 method: 'POST',
                 body: formData,
             });
@@ -146,7 +147,7 @@ const GalleryManager = () => {
                         filteredGallery.map((item) => (
                             <div key={item.id} className="group relative aspect-square bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:border-primary/20 hover:shadow-lg transition-all">
                                 <img
-                                    src={`http://localhost/hostel-connect/backend/${item.image_url}`}
+                                    src={`${BACKEND_URL}/${item.image_url}`}
                                     alt={item.title}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />

@@ -35,8 +35,8 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
-        // Map category to type using AS alias
-        $sql = "SELECT id, title, content, category as type, created_at FROM notices ORDER BY created_at DESC";
+        // Map category to type using AS alias, and include is_urgent
+        $sql = "SELECT id, title, content, category as type, is_urgent, created_at FROM notices ORDER BY created_at DESC";
         $result = $conn->query($sql);
         $notices = [];
         if ($result && $result->num_rows > 0) {

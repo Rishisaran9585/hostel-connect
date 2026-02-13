@@ -7,25 +7,31 @@ const BranchesSection = () => {
       city: 'Coimbatore',
       area: 'RS Puram & Peelamedu',
       members: '150+ Members',
-      image: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=800&auto=format&fit=crop',
+      image: '/coimbatore.jpg',
     },
     {
-      city: 'Chennai',
-      area: 'OMR & Adyar',
-      members: '80+ Members',
-      image: 'https://images.unsplash.com/photo-1583505221971-993559677043?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      city: 'Madurai',
-      area: 'Anna Nagar',
-      members: '40+ Members',
-      image: 'https://images.unsplash.com/photo-1596422846543-75c6fc18a593?q=80&w=800&auto=format&fit=crop',
+      city: 'Salem',
+      area: 'Fairlands & Hasthampatti',
+      members: '100+ Members',
+      image: '/salem.jpg',
     },
     {
       city: 'Trichy',
-      area: 'Thillai Nagar',
-      members: '25+ Members',
-      image: 'https://images.unsplash.com/photo-1626014303757-03f9ec6bc96c?q=80&w=800&auto=format&fit=crop',
+      area: 'Thillai Nagar & Cantonment',
+      members: '85+ Members',
+      image: '/trichy.jpg',
+    },
+    {
+      city: 'Erode',
+      area: 'Perundurai Road',
+      members: '60+ Members',
+      image: '/erode.jpg',
+    },
+    {
+      city: 'Tiruppur',
+      area: 'Avinashi Road',
+      members: '120+ Members',
+      image: '/tiruppur.jpg',
     },
   ];
 
@@ -49,7 +55,7 @@ const BranchesSection = () => {
         </div>
 
         {/* Branches Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {branches.map((branch, index) => (
             <div
               key={index}

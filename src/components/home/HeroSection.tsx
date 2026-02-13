@@ -78,7 +78,7 @@ const HeroSection = () => {
       </div>
 
       {/* Abstract Design Element: Geometric Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+
     </section>
   );
 };

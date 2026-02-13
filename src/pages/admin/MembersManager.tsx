@@ -4,6 +4,7 @@ import { Trash2, Search, Filter, Mail, Phone, PlusCircle, X, Camera } from 'luci
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { API_BASE_URL, BACKEND_URL } from '@/config';
 
 interface Member {
     id: number;
@@ -40,7 +41,7 @@ const MembersManager = () => {
 
     const fetchMembers = async () => {
         try {
-            const response = await fetch('http://localhost/hostel-connect/backend/api/members.php');
+            const response = await fetch(`${API_BASE_URL}/members.php`);
             const data = await response.json();
             setMembers(Array.isArray(data) ? data : []);
             setLoading(false);
@@ -53,7 +54,7 @@ const MembersManager = () => {
     const handleDelete = async (id: number) => {
         if (confirm('Are you sure you want to remove this member?')) {
             try {
-                const response = await fetch(`http://localhost/hostel-connect/backend/api/members.php?id=${id}`, {
+                const response = await fetch(`${API_BASE_URL}/members.php?id=${id}`, {
                     method: 'DELETE',
                 });
                 if (response.ok) {
@@ -81,7 +82,7 @@ const MembersManager = () => {
         }
 
         try {
-            const response = await fetch('http://localhost/hostel-connect/backend/api/members.php', {
+            const response = await fetch(`${API_BASE_URL}/members.php`, {
                 method: 'POST',
                 body: data,
             });
@@ -122,6 +123,13 @@ const MembersManager = () => {
 
         return name.includes(query) || role.includes(query) || email.includes(query) || hName.includes(query);
     });
+
+    const categoryLabels: Record<string, string> = {
+        founders: 'Founder',
+        board: 'Board Member',
+        executive: 'Executive Committee',
+        general: 'Member',
+    };
 
     const getRoleBadge = (category: string | undefined | null) => {
         const c = category?.toLowerCase() || 'general';
@@ -202,7 +210,7 @@ const MembersManager = () => {
                                                     <div className="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center">
                                                         {member.photo ? (
                                                             <img
-                                                                src={`http://localhost/hostel-connect/backend/${member.photo}`}
+                                                                src={`${BACKEND_URL}/${member.photo}`}
                                                                 alt={member.name}
                                                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                                             />
@@ -215,7 +223,7 @@ const MembersManager = () => {
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <Badge variant="outline" className={cn("px-2 py-0.5 rounded-md text-[10px] uppercase font-bold border shadow-xs", getRoleBadge(member.category))}>
-                                                    {member.role || member.category}
+                                                    {categoryLabels[member.category?.toLowerCase() || 'general'] || member.category}
                                                 </Badge>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-medium">
@@ -271,8 +279,8 @@ const MembersManager = () => {
                                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                             {[
                                                 { id: 'founders', label: 'Founder' },
-                                                { id: 'board', label: 'Board' },
-                                                { id: 'executive', label: 'Executive' },
+                                                { id: 'board', label: 'Board Member' },
+                                                { id: 'executive', label: 'Executive Committee' },
                                                 { id: 'general', label: 'Member' },
                                             ].map((cat) => (
                                                 <button

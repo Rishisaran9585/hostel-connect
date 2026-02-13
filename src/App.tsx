@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Members from "./pages/Members";
 import Gallery from "./pages/Gallery";
 import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 import Notices from "./pages/Notices";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -18,6 +19,7 @@ import BlogManager from './pages/admin/BlogManager';
 import NoticeManager from './pages/admin/NoticeManager';
 import GalleryManager from './pages/admin/GalleryManager';
 import AdminRoute from './components/admin/AdminRoute';
+import ScrollToTop from './components/ScrollToTop';
 
 const queryClient = new QueryClient();
 
@@ -32,12 +34,14 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/members" element={<Members />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
           <Route path="/notices" element={<Notices />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

@@ -1,8 +1,23 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "hostel_connect";
+$whitelist = array(
+    '127.0.0.1',
+    '::1',
+    'localhost'
+);
+
+if (in_array($_SERVER['HTTP_HOST'], $whitelist)) {
+    // Localhost Credentials (XAMPP)
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "hostel_connect";
+} else {
+    // Production Credentials (Hostinger)
+    $servername = "localhost";
+    $username = "u891495087_hostel";
+    $password = "hostelCHOA123@";
+    $dbname = "u891495087_hostel";
+}
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

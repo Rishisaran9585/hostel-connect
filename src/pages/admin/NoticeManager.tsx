@@ -4,6 +4,7 @@ import { Trash2, Bell, AlertTriangle, Info, Calendar, Search, Megaphone, X } fro
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { API_BASE_URL } from '@/config';
 
 interface Notice {
     id: number;
@@ -30,7 +31,7 @@ const NoticeManager = () => {
 
     const fetchNotices = async () => {
         try {
-            const response = await fetch('http://localhost/hostel-connect/backend/api/notice.php');
+            const response = await fetch(`${API_BASE_URL}/notice.php`);
             const data = await response.json();
             setNotices(Array.isArray(data) ? data : []);
             setLoading(false);
@@ -43,7 +44,7 @@ const NoticeManager = () => {
     const handleDelete = async (id: number) => {
         if (confirm('Are you sure you want to delete this notice?')) {
             try {
-                const response = await fetch(`http://localhost/hostel-connect/backend/api/notice.php?id=${id}`, {
+                const response = await fetch(`${API_BASE_URL}/notice.php?id=${id}`, {
                     method: 'DELETE',
                 });
                 if (response.ok) {
@@ -58,7 +59,7 @@ const NoticeManager = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost/hostel-connect/backend/api/notice.php', {
+            const response = await fetch(`${API_BASE_URL}/notice.php`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -79,26 +80,29 @@ const NoticeManager = () => {
     );
 
     const getNoticeTypeStyles = (type: string) => {
-        switch (type.toLowerCase()) {
-            case 'important':
-                return {
-                    badge: 'bg-rose-500/10 text-rose-500 border-rose-500/10',
-                    icon: <AlertTriangle size={12} className="mr-1.5" />,
-                    card: 'border-rose-200 bg-rose-50/30'
-                };
-            case 'event':
-                return {
-                    badge: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/10',
-                    icon: <Megaphone size={12} className="mr-1.5" />,
-                    card: 'border-emerald-200 bg-emerald-50/30'
-                };
-            default:
-                return {
-                    badge: 'bg-blue-500/10 text-blue-500 border-blue-500/10',
-                    icon: <Info size={12} className="mr-1.5" />,
-                    card: 'border-slate-200 bg-white'
-                };
+        const lowerType = type.toLowerCase();
+        if (lowerType === 'important' || lowerType === 'strategic') {
+            return {
+                label: 'Important',
+                badge: 'bg-rose-500/10 text-rose-500 border-rose-500/10',
+                icon: <AlertTriangle size={12} className="mr-1.5" />,
+                card: 'border-rose-200 bg-rose-50/30'
+            };
         }
+        if (lowerType === 'event' || lowerType === 'member event') {
+            return {
+                label: 'Event',
+                badge: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/10',
+                icon: <Megaphone size={12} className="mr-1.5" />,
+                card: 'border-emerald-200 bg-emerald-50/30'
+            };
+        }
+        return {
+            label: 'General',
+            badge: 'bg-blue-500/10 text-blue-500 border-blue-500/10',
+            icon: <Info size={12} className="mr-1.5" />,
+            card: 'border-slate-200 bg-white'
+        };
     };
 
     return (
@@ -151,7 +155,7 @@ const NoticeManager = () => {
                                         <div className="flex items-center gap-4">
                                             <Badge variant="outline" className={`px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider border ${styles.badge}`}>
                                                 {styles.icon}
-                                                {notice.type}
+                                                {styles.label}
                                             </Badge>
                                             <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                                                 <Calendar size={12} />

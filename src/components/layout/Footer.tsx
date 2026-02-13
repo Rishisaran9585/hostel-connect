@@ -13,10 +13,10 @@ const Footer = () => {
 
   const branches = [
     'Coimbatore HQ',
-    'Chennai Hub',
-    'Madurai Regional',
-    'Trichy Central',
     'Salem Sector',
+    'Trichy Central',
+    'Erode Hub',
+    'Tiruppur Zone',
   ];
 
   const socialLinks = [

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { Users, FileText, Bell, Image as ImageIcon, Activity, Zap, ShieldCheck, Database } from 'lucide-react';
+import { API_BASE_URL } from '@/config';
 
 const AdminDashboard = () => {
     const [statsData, setStatsData] = useState<any>(null);
@@ -12,7 +13,7 @@ const AdminDashboard = () => {
 
     const fetchStats = async () => {
         try {
-            const response = await fetch('http://localhost/hostel-connect/backend/api/stats.php');
+            const response = await fetch(`${API_BASE_URL}/stats.php`);
             const data = await response.json();
             if (data.success) {
                 setStatsData(data.stats);

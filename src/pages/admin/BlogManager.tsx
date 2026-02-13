@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
-import { Trash2, Search, Calendar, FileText, X } from 'lucide-react';
+import { Trash2, Search, Calendar, FileText, X, Image as ImageIcon, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { API_BASE_URL, BACKEND_URL } from '@/config';
+import { toast } from 'sonner';
 
 interface Blog {
     id: number;
@@ -10,6 +12,7 @@ interface Blog {
     content: string;
     author: string;
     created_at: string;
+    image_url?: string;
 }
 
 const BlogManager = () => {
@@ -17,6 +20,8 @@ const BlogManager = () => {
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         title: '',
         content: '',
@@ -29,7 +34,7 @@ const BlogManager = () => {
 
     const fetchBlogs = async () => {
         try {
-            const response = await fetch('http://localhost/hostel-connect/backend/api/blog.php');
+            const response = await fetch(`${API_BASE_URL}/blog.php`);
             const data = await response.json();
             setBlogs(Array.isArray(data) ? data : []);
             setLoading(false);
@@ -39,36 +44,63 @@ const BlogManager = () => {
         }
     };
 
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setImageFile(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handleDelete = async (id: number) => {
         if (confirm('Are you sure you want to delete this post?')) {
             try {
-                const response = await fetch(`http://localhost/hostel-connect/backend/api/blog.php?id=${id}`, {
+                const response = await fetch(`${API_BASE_URL}/blog.php?id=${id}`, {
                     method: 'DELETE',
                 });
                 if (response.ok) {
+                    toast.success('Blog post deleted');
                     fetchBlogs();
                 }
             } catch (error) {
                 console.error('Error deleting blog:', error);
+                toast.error('Failed to delete blog post');
             }
         }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const data = new FormData();
+        data.append('title', formData.title);
+        data.append('content', formData.content);
+        data.append('author', formData.author);
+        if (imageFile) {
+            data.append('image', imageFile);
+        }
+
         try {
-            const response = await fetch('http://localhost/hostel-connect/backend/api/blog.php', {
+            const response = await fetch(`${API_BASE_URL}/blog.php`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
+                body: data,
             });
             if (response.ok) {
+                toast.success('Blog post published successfully');
                 fetchBlogs();
                 setIsModalOpen(false);
                 setFormData({ title: '', content: '', author: '' });
+                setImageFile(null);
+                setImagePreview(null);
+            } else {
+                toast.error('Failed to publish blog post');
             }
         } catch (error) {
             console.error('Error posting blog:', error);
+            toast.error('An error occurred');
         }
     };
 
@@ -128,27 +160,38 @@ const BlogManager = () => {
                         </div>
                     ) : (
                         filteredBlogs.map((blog) => (
-                            <div key={blog.id} className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col hover:border-primary/20 transition-all shadow-sm group">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-1 group-hover:text-primary transition-colors">
-                                    {blog.title}
-                                </h3>
-                                <p className="text-slate-500 text-sm line-clamp-3 mb-6 flex-1 font-medium">
-                                    {blog.content}
-                                </p>
-                                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                                    <div className="flex flex-col">
-                                        <span className="text-xs font-bold text-slate-700">{blog.author}</span>
-                                        <div className="flex items-center gap-1.5 text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-wider">
-                                            <Calendar size={10} />
-                                            {formatDate(blog.created_at)}
-                                        </div>
+                            <div key={blog.id} className="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col hover:border-primary/20 transition-all shadow-sm group">
+                                {blog.image_url && (
+                                    <div className="h-40 overflow-hidden border-b border-slate-100">
+                                        <img
+                                            src={`${BACKEND_URL}/${blog.image_url}`}
+                                            alt={blog.title}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
                                     </div>
-                                    <button
-                                        onClick={() => handleDelete(blog.id)}
-                                        className="w-9 h-9 rounded-lg bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white transition-all flex items-center justify-center shadow-sm"
-                                    >
-                                        <Trash2 size={14} />
-                                    </button>
+                                )}
+                                <div className="p-6 flex flex-col flex-1">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-1 group-hover:text-primary transition-colors">
+                                        {blog.title}
+                                    </h3>
+                                    <p className="text-slate-500 text-sm line-clamp-3 mb-6 flex-1 font-medium">
+                                        {blog.content}
+                                    </p>
+                                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                                        <div className="flex flex-col">
+                                            <span className="text-xs font-bold text-slate-700">{blog.author}</span>
+                                            <div className="flex items-center gap-1.5 text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-wider">
+                                                <Calendar size={10} />
+                                                {formatDate(blog.created_at)}
+                                            </div>
+                                        </div>
+                                        <button
+                                            onClick={() => handleDelete(blog.id)}
+                                            className="w-9 h-9 rounded-lg bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white transition-all flex items-center justify-center shadow-sm"
+                                        >
+                                            <Trash2 size={14} />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ))
@@ -193,6 +236,35 @@ const BlogManager = () => {
                                         />
                                     </div>
                                 </div>
+
+                                {/* Image Upload Section */}
+                                <div className="space-y-2">
+                                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Featured Image</label>
+                                    <div className="flex flex-col items-center justify-center w-full">
+                                        <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-slate-200 border-dashed rounded-2xl cursor-pointer bg-slate-50 hover:bg-slate-100 transition-all overflow-hidden relative">
+                                            {imagePreview ? (
+                                                <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                                            ) : (
+                                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                    <Upload className="w-8 h-8 mb-3 text-slate-400" />
+                                                    <p className="mb-2 text-sm text-slate-500 font-bold">Click to upload photo</p>
+                                                    <p className="text-xs text-slate-400 font-medium">SVG, PNG, JPG or WebP</p>
+                                                </div>
+                                            )}
+                                            <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
+                                        </label>
+                                        {imagePreview && (
+                                            <button
+                                                type="button"
+                                                onClick={() => { setImageFile(null); setImagePreview(null); }}
+                                                className="mt-2 text-xs font-bold text-rose-500 hover:text-rose-600 uppercase tracking-wider"
+                                            >
+                                                Remove Image
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+
                                 <div className="space-y-2">
                                     <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Content</label>
                                     <textarea
