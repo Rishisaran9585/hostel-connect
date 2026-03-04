@@ -1,86 +1,84 @@
-import { ArrowRight, Users, Building, Award } from 'lucide-react';
+import { ArrowRight, Users, Building, Award, ShieldCheck, MapPin, Globe, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[90vh] flex items-center hero-gradient overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
+    <section className="relative min-h-[calc(100vh-140px)] flex items-center hero-gradient overflow-hidden">
+      {/* Dynamic Background Layout */}
+      <div className="absolute inset-0 opacity-[0.1] pointer-events-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
       </div>
 
-      {/* Floating Shapes */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-primary-foreground/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary-foreground/5 rounded-full blur-3xl" />
+      {/* Premium Cinematic Blobs */}
+      <div className="absolute top-0 -left-48 w-[40rem] h-[40rem] bg-white/[0.02] rounded-full blur-[100px] animate-pulse pointer-events-none" />
+      <div className="absolute -bottom-48 -right-48 w-[50rem] h-[50rem] bg-primary-dark/30 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full px-4 py-2 mb-8 animate-fade-up">
-            <span className="w-2 h-2 rounded-full bg-primary-foreground animate-pulse" />
-            <span className="text-primary-foreground text-sm font-medium">
-              Registered Association Since 2017
+      <div className="container mx-auto px-4 relative z-10 py-12">
+        <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+          {/* Elite Credential Badge */}
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-xl rounded-full px-5 py-2 mb-6 border border-white/20 animate-fade-up shadow-lg group cursor-default">
+            <ShieldCheck className="w-4 h-4 text-white animate-pulse" />
+            <span className="text-white text-[9px] font-black tracking-[0.2em] uppercase">
+              Registered Institutional Body Since 2017
             </span>
           </div>
 
-          {/* Main Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-up stagger-1">
-            Coimbatore Hostel
-            <br />
-            <span className="opacity-90">Owner Association</span>
+          {/* Visionary Heading */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 animate-fade-up stagger-1 tracking-tight">
+            THE APEX OF <br />
+            <span className="text-white/70 italic font-medium">HOSTEL STANDARDS</span>
           </h1>
 
-          {/* Tagline */}
-          <p className="text-xl md:text-2xl text-primary-foreground/90 font-light mb-8 max-w-2xl animate-fade-up stagger-2">
-            Revolutionizing the Hostel Industry Since 2017 — Empowering 300+ members across Tamil Nadu
+          {/* Narrative Tagline */}
+          <p className="text-base md:text-lg text-white/90 font-medium mb-8 max-w-2xl animate-fade-up stagger-2 leading-relaxed tracking-tight">
+            The authoritative council representing 300+ visionary proprietors driving the infrastructure and safety of Tamil Nadu's residency ecosystem.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4 mb-12 animate-fade-up stagger-3">
+          {/* Action Hub */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-12 animate-fade-up stagger-3">
             <Link to="/members">
-              <Button variant="hero" size="xl" className="group">
-                View Members
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Button size="lg" className="h-14 px-8 rounded-xl bg-white text-primary hover:bg-secondary font-black text-base shadow-xl transition-all hover:scale-105 active:scale-95 group">
+                Access Registry
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/contact">
-              <Button variant="hero-outline" size="xl">
-                Contact Association
+              <Button size="lg" variant="outline" className="h-14 px-8 rounded-xl border-2 border-white/30 text-white backdrop-blur-md hover:bg-white/10 font-black text-base transition-all">
+                Partner With Us
               </Button>
             </Link>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 animate-fade-up stagger-4">
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-xl p-5 border border-primary-foreground/10">
-              <div className="text-3xl md:text-4xl font-bold text-primary-foreground mb-1">8+</div>
-              <div className="text-primary-foreground/70 text-sm">Years of Service</div>
-            </div>
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-xl p-5 border border-primary-foreground/10">
-              <div className="text-3xl md:text-4xl font-bold text-primary-foreground mb-1">300+</div>
-              <div className="text-primary-foreground/70 text-sm">Active Members</div>
-            </div>
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-xl p-5 border border-primary-foreground/10">
-              <div className="text-3xl md:text-4xl font-bold text-primary-foreground mb-1">5</div>
-              <div className="text-primary-foreground/70 text-sm">Branches</div>
-            </div>
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-xl p-5 border border-primary-foreground/10">
-              <div className="text-3xl md:text-4xl font-bold text-primary-foreground mb-1">500+</div>
-              <div className="text-primary-foreground/70 text-sm">Licensed Hostels</div>
-            </div>
+          {/* Elite Stats Ticker */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full animate-fade-up stagger-4 max-w-5xl">
+            {[
+              { label: 'Advocacy Legacy', value: '8+ Yrs', icon: Award },
+              { label: 'Proprietor Network', value: '300+', icon: Users },
+              { label: 'Strategic Branches', value: '05', icon: MapPin },
+              { label: 'Verified Facilities', value: '500+', icon: Building },
+            ].map((stat, i) => (
+              <div key={i} className="relative bg-white/5 backdrop-blur-3xl rounded-[2rem] p-4 border border-white/10 hover:bg-white/10 hover:scale-105 transition-all duration-500 group overflow-hidden">
+                <div className="flex flex-col items-center gap-3 relative z-10">
+                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-md">
+                    <stat.icon className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl md:text-3xl font-black text-white tracking-tighter mb-0.5">{stat.value}</div>
+                    <div className="text-white/50 text-[8px] font-black uppercase tracking-[0.2em]">{stat.label}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Bottom Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 120L60 110C120 100 240 80 360 75C480 70 600 80 720 85C840 90 960 90 1080 85C1200 80 1320 70 1380 65L1440 60V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="hsl(var(--background))" />
-        </svg>
-      </div>
+      {/* Abstract Design Element: Geometric Fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
 };

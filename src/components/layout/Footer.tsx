@@ -1,22 +1,22 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Instagram, Linkedin, Youtube, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Instagram, Linkedin, Youtube, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
 
 const Footer = () => {
   const quickLinks = [
     { name: 'About Us', path: '/about' },
     { name: 'Our Members', path: '/members' },
-    { name: 'Services', path: '/services' },
-    { name: 'Gallery', path: '/gallery' },
-    { name: 'Blog', path: '/blog' },
+    { name: 'Media Gallery', path: '/gallery' },
+    { name: 'Latest Blog', path: '/blog' },
+    { name: 'News & Updates', path: '/notices' },
     { name: 'Contact Us', path: '/contact' },
   ];
 
   const branches = [
-    'Coimbatore',
-    'Salem',
-    'Trichy',
-    'Erode',
-    'Tiruppur',
+    'Coimbatore HQ',
+    'Chennai Hub',
+    'Madurai Regional',
+    'Trichy Central',
+    'Salem Sector',
   ];
 
   const socialLinks = [
@@ -28,31 +28,35 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-foreground text-background">
-      {/* Main Footer */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* About Column */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">C</span>
+    <footer className="bg-foreground text-background pt-24 relative overflow-hidden">
+      {/* Decorative Architecture */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-30" />
+      <div className="absolute -top-48 -right-48 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute -bottom-48 -left-48 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 pb-20">
+          {/* Authority Profile */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-2xl hero-gradient flex items-center justify-center shadow-2xl shadow-primary/20 transform -rotate-6">
+                <span className="text-white font-black text-3xl">C</span>
               </div>
               <div>
-                <h3 className="font-bold text-lg">CHOA</h3>
-                <p className="text-sm opacity-70">Since 2017</p>
+                <h3 className="font-black text-2xl tracking-tighter leading-none mb-1">CHOA</h3>
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Institutional Body</p>
               </div>
             </div>
-            <p className="text-sm opacity-80 leading-relaxed">
-              Coimbatore Hostel Owner Association is a registered body dedicated to supporting and empowering hostel owners across Tamil Nadu since 2017.
+            <p className="text-base opacity-70 leading-relaxed font-medium max-w-sm">
+              The Coimbatore Hostel Owner Association (CHOA) is the architect of modern residency standards in Tamil Nadu. We empower 300+ visionary owners through advocacy and legislative innovation.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-lg bg-background/10 flex items-center justify-center hover:bg-primary transition-colors duration-300"
+                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-xl"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
@@ -60,17 +64,20 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-6">
-            <h3 className="font-semibold text-lg">Quick Links</h3>
-            <ul className="space-y-3">
+          {/* Quick Access */}
+          <div className="lg:col-span-2 space-y-8">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-[2px] bg-primary" />
+              <h3 className="font-black text-sm uppercase tracking-[0.2em]">Quick Access</h3>
+            </div>
+            <ul className="space-y-4">
               {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-sm opacity-80 hover:opacity-100 hover:text-primary transition-all duration-200 flex items-center gap-2 group"
+                    className="text-base opacity-60 hover:opacity-100 hover:text-primary transition-all duration-300 flex items-center gap-3 group font-medium"
                   >
-                    <ArrowRight className="w-4 h-4 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
+                    <ArrowRight className="w-4 h-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 text-primary" />
                     {link.name}
                   </Link>
                 </li>
@@ -78,70 +85,82 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Branches */}
-          <div className="space-y-6">
-            <h3 className="font-semibold text-lg">Our Branches</h3>
-            <ul className="space-y-3">
+          {/* Regional Hubs */}
+          <div className="lg:col-span-2 space-y-8">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-[2px] bg-primary" />
+              <h3 className="font-black text-sm uppercase tracking-[0.2em]">Regional Hubs</h3>
+            </div>
+            <ul className="space-y-4">
               {branches.map((branch) => (
-                <li key={branch} className="flex items-center gap-2 text-sm opacity-80">
-                  <MapPin className="w-4 h-4 text-primary" />
+                <li key={branch} className="flex items-center gap-3 text-base opacity-60 font-medium group cursor-default">
+                  <MapPin className="w-4 h-4 text-primary group-hover:animate-bounce" />
                   {branch}
                 </li>
               ))}
             </ul>
-            <div className="pt-2">
-              <div className="text-xs opacity-60 space-y-1">
-                <p>Registration No: 63/2017</p>
-                <p>Date: 15 March 2017</p>
+            <div className="pt-4 border-t border-white/5">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/20">
+                <ShieldCheck className="w-4 h-4 text-primary" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-primary">Reg No: 63/2017</span>
               </div>
             </div>
           </div>
 
-          {/* Contact Info */}
-          <div className="space-y-6">
-            <h3 className="font-semibold text-lg">Contact Us</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-sm opacity-80 leading-relaxed">
+          {/* Headquarters */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-[2px] bg-primary" />
+              <h3 className="font-black text-sm uppercase tracking-[0.2em]">Headquarters</h3>
+            </div>
+            <ul className="space-y-6">
+              <li className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 group hover:bg-white/10 transition-colors">
+                  <MapPin className="w-6 h-6 text-primary" />
+                </div>
+                <span className="text-base opacity-70 leading-relaxed font-medium">
                   6A, Thudiyalur Main Road,<br />
-                  Saravanampatti Post,<br />
-                  Coimbatore – 641035
+                  Saravanampatti Post, Coimbatore<br />
+                  Tamil Nadu – 641035
                 </span>
               </li>
               <li>
-                <a href="tel:9047747633" className="flex items-center gap-3 text-sm opacity-80 hover:opacity-100 hover:text-primary transition-colors">
-                  <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                  9047747633
+                <a href="tel:9047747633" className="flex items-center gap-4 text-base group hover:text-primary transition-colors">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                    <Phone className="w-6 h-6" />
+                  </div>
+                  <span className="opacity-70 group-hover:opacity-100 font-bold tracking-tight">9047747633</span>
                 </a>
               </li>
               <li>
-                <a href="mailto:info@coimbatorehostels.com" className="flex items-center gap-3 text-sm opacity-80 hover:opacity-100 hover:text-primary transition-colors">
-                  <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                  info@coimbatorehostels.com
+                <a href="mailto:info@coimbatorehostels.com" className="flex items-center gap-4 text-base group hover:text-primary transition-colors">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <span className="opacity-70 group-hover:opacity-100 font-bold tracking-tight">info@coimbatorehostels.com</span>
                 </a>
-              </li>
-              <li className="flex items-center gap-3 text-sm opacity-80">
-                <Clock className="w-5 h-5 text-primary flex-shrink-0" />
-                Mon - Sat: 9:00 AM - 6:00 PM
               </li>
             </ul>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-background/10">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm opacity-70">
-            <p>© {new Date().getFullYear()} Coimbatore Hostel Owner Association. All rights reserved.</p>
-            <div className="flex gap-6">
-              <Link to="/privacy" className="hover:opacity-100 hover:text-primary transition-colors">
-                Privacy Policy
-              </Link>
-              <Link to="/terms" className="hover:opacity-100 hover:text-primary transition-colors">
-                Terms of Service
-              </Link>
+      {/* Terminal Bar */}
+      <div className="bg-black/40 backdrop-blur-sm border-t border-white/5">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+              <p className="text-xs font-black uppercase tracking-[0.2em] opacity-40">
+                © {new Date().getFullYear()} CHOA Institutional Authority
+              </p>
+              <div className="flex gap-8">
+                <Link to="/privacy" className="text-[10px] font-black uppercase tracking-[0.2em] opacity-30 hover:opacity-100 hover:text-primary transition-all">Privacy Framework</Link>
+                <Link to="/terms" className="text-[10px] font-black uppercase tracking-[0.2em] opacity-30 hover:opacity-100 hover:text-primary transition-all">Legislative Terms</Link>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Zap className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30">Powering Excellence Since 2017</span>
             </div>
           </div>
         </div>
