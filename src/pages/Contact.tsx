@@ -39,15 +39,15 @@ const Contact = () => {
     },
     {
       icon: Phone,
-      title: 'Direct Helpline',
-      details: ['+91 90477 47633', 'Assistance for existing members'],
+      title: 'Call Us',
+      details: ['+91 90477 47633', 'We are here to help'],
       action: { type: 'tel', value: '9047747633' },
       tag: 'Available 24/7'
     },
     {
       icon: Mail,
-      title: 'Official Email',
-      details: ['info@coimbatorehostels.com', 'For licensing & registration'],
+      title: 'Email Us',
+      details: ['info@coimbatorehostels.com', 'For any questions'],
       action: { type: 'mailto', value: 'info@coimbatorehostels.com' },
       tag: 'Verified Source'
     },
@@ -62,7 +62,7 @@ const Contact = () => {
   return (
     <Layout>
       {/* Premium Hero */}
-      <section className="py-24 hero-gradient relative overflow-hidden">
+      <section className="py-16 hero-gradient relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.15]">
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -77,103 +77,108 @@ const Contact = () => {
           <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-1.5 mb-8 backdrop-blur-md">
             Connect With Us
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight max-w-4xl mx-auto leading-tight">
-            Empowering Your Vision Through <span className="text-white/80">Support</span>
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight max-w-4xl mx-auto leading-tight">
+            We are here to <span className="text-white/80">Help You</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-            Whether you're starting a new hostel or looking for protective advocacy, we are here to assist you at every step.
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+            Whether you are starting a new hostel or need help with rules, we are here to support you at every step.
           </p>
         </div>
       </section>
 
       {/* Main Content Grid */}
       <section className="py-24 bg-background relative overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-12 gap-16">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] bg-secondary rounded-full blur-[120px]" />
+        </div>
 
-            {/* Contact Detail Cards - Left Side */}
-            <div className="lg:col-span-4 space-y-6">
-              <div className="mb-10">
-                <h2 className="text-3xl font-black text-foreground mb-4">Official Channels</h2>
-                <p className="text-muted-foreground font-medium">Use these direct channels for legitimate association inquiries and member support.</p>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+
+            {/* Left Column: Contact Information & Context */}
+            <div className="space-y-12 pt-8">
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  <span className="text-xs font-black uppercase tracking-widest text-primary">Always Available</span>
+                </div>
+                <h2 className="text-4xl md:text-6xl font-black text-foreground tracking-tighter leading-[0.9]">
+                  Let's Start a <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">Conversation</span>
+                </h2>
+                <p className="text-xl text-muted-foreground font-medium max-w-md leading-relaxed">
+                  We are here to answer your questions, resolve your issues, and welcome you to the community.
+                </p>
               </div>
 
-              {contactInfo.map((info, index) => (
-                <div key={index} className="group relative p-8 rounded-[2.5rem] bg-secondary/50 border border-transparent hover:border-primary/20 hover:bg-white hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
-                  <div className="absolute top-6 right-8">
-                    <Badge className="bg-white text-primary border-none shadow-sm text-[8px] font-black uppercase tracking-widest">{info.tag}</Badge>
-                  </div>
-                  <div className="flex gap-6 items-start">
-                    <div className="w-14 h-14 rounded-2xl hero-gradient flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
-                      <info.icon className="w-6 h-6 text-white" />
+              <div className="grid sm:grid-cols-2 gap-6">
+                {contactInfo.map((info, index) => (
+                  <div key={index} className="group p-8 rounded-[2rem] bg-secondary/30 border border-border/50 hover:bg-white hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                      <info.icon className="w-5 h-5" />
                     </div>
-                    <div>
-                      <h3 className="text-lg font-black text-foreground mb-2">{info.title}</h3>
-                      {info.details.map((detail, dIndex) => (
-                        info.action ? (
-                          <a
-                            key={dIndex}
-                            href={`${info.action.type}:${info.action.value}`}
-                            className="block text-muted-foreground text-sm font-medium hover:text-primary transition-colors"
-                          >
-                            {detail}
-                          </a>
-                        ) : (
-                          <p key={dIndex} className="text-muted-foreground text-sm font-medium">{detail}</p>
-                        )
-                      ))}
+                    <div className="space-y-2">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-primary/60">{info.tag}</span>
+                      <h3 className="text-lg font-black text-foreground">{info.title}</h3>
+                      <div className="flex flex-col gap-1">
+                        {info.details.map((detail, dIndex) => (
+                          info.action ? (
+                            <a
+                              key={dIndex}
+                              href={`${info.action.type}:${info.action.value}`}
+                              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              {detail}
+                            </a>
+                          ) : (
+                            <p key={dIndex} className="text-sm font-medium text-muted-foreground">{detail}</p>
+                          )
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
 
-              {/* Registration Meta */}
-              <div className="p-8 rounded-[2.5rem] bg-primary/5 border border-primary/20 relative overflow-hidden group">
-                <div className="relative z-10 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white">
-                    <ShieldCheck className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-black text-foreground">Verified Entity</h3>
-                    <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest">Reg No. 63/2017</p>
-                  </div>
+              {/* Verified Badge */}
+              <div className="inline-flex items-center gap-4 p-6 rounded-3xl bg-secondary/50 border border-border/50 backdrop-blur-sm">
+                <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center shadow-lg">
+                  <ShieldCheck className="w-7 h-7 text-primary" />
+                </div>
+                <div>
+                  <h4 className="font-black text-foreground text-lg">Official Association</h4>
+                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Govt Reg No. 63/2017</p>
                 </div>
               </div>
             </div>
 
-            {/* Premium Message Form - Right Side */}
-            <div className="lg:col-span-8">
-              <div className="bg-card rounded-[3rem] p-10 md:p-16 border border-border/50 shadow-2xl relative overflow-hidden">
-                {/* Visual decoration in form */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[5rem]" />
+            {/* Right Column: Premium Form */}
+            <div className="lg:sticky lg:top-32">
+              <div className="rounded-[3rem] bg-white border border-border/40 shadow-2xl shadow-primary/5 p-8 md:p-12 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-bl-[10rem] pointer-events-none" />
 
-                <div className="relative z-10 mb-12">
-                  <div className="inline-flex items-center gap-2 mb-4 text-primary font-black uppercase tracking-[0.2em] text-[10px]">
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Interactive Inquiry Form</span>
-                  </div>
-                  <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">Send a <span className="text-primary">Formal Message</span></h2>
+                <div className="relative z-10 mb-10">
+                  <h3 className="text-3xl font-black text-foreground mb-3">Send a Message</h3>
+                  <p className="text-muted-foreground font-medium">Fill out the form below and we will get back to you within 24 hours.</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="relative z-10 space-y-8">
-                  <div className="grid sm:grid-cols-2 gap-8">
-                    <div className="space-y-3">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-2">
-                        Full Name Representative
-                      </label>
+                <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Your Name</label>
                       <Input
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="e.g. Rajesh Kumar"
                         required
-                        className="h-16 px-6 rounded-2xl bg-secondary/50 border-transparent focus:bg-white focus:ring-primary/20 transition-all font-medium"
+                        className="h-14 px-6 rounded-2xl bg-secondary/30 border-transparent focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all font-bold"
                       />
                     </div>
-                    <div className="space-y-3">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-2">
-                        Correspondence Email
-                      </label>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Email Address</label>
                       <Input
                         type="email"
                         name="email"
@@ -181,59 +186,57 @@ const Contact = () => {
                         onChange={handleChange}
                         placeholder="you@domain.com"
                         required
-                        className="h-16 px-6 rounded-2xl bg-secondary/50 border-transparent focus:bg-white focus:ring-primary/20 transition-all font-medium"
+                        className="h-14 px-6 rounded-2xl bg-secondary/30 border-transparent focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all font-bold"
                       />
                     </div>
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-8">
-                    <div className="space-y-3">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-2">
-                        WhatsApp / Phone Contact
-                      </label>
+
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Phone</label>
                       <Input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="+91 00000 00000"
-                        className="h-16 px-6 rounded-2xl bg-secondary/50 border-transparent focus:bg-white focus:ring-primary/20 transition-all font-medium"
+                        className="h-14 px-6 rounded-2xl bg-secondary/30 border-transparent focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all font-bold"
                       />
                     </div>
-                    <div className="space-y-3">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-2">
-                        Specific Purpose
-                      </label>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Subject</label>
                       <Input
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange}
                         placeholder="e.g. Licensing, Dispute..."
                         required
-                        className="h-16 px-6 rounded-2xl bg-secondary/50 border-transparent focus:bg-white focus:ring-primary/20 transition-all font-medium"
+                        className="h-14 px-6 rounded-2xl bg-secondary/30 border-transparent focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all font-bold"
                       />
                     </div>
                   </div>
-                  <div className="space-y-3">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-2">
-                      Message Narrative
-                    </label>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Message Narrative</label>
                     <Textarea
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Detail your inquiry here for our executive committee review..."
-                      rows={6}
+                      rows={5}
                       required
-                      className="p-6 rounded-[2rem] bg-secondary/50 border-transparent focus:bg-white focus:ring-primary/20 transition-all font-medium resize-none"
+                      className="p-6 rounded-[2rem] bg-secondary/30 border-transparent focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all font-medium resize-none"
                     />
                   </div>
-                  <Button type="submit" size="xl" className="w-full sm:w-auto h-16 px-12 rounded-2xl font-black group shadow-xl shadow-primary/20">
-                    Dispatch Message
-                    <Send className="w-6 h-6 ml-3 group-hover:translate-x-1.5 group-hover:-translate-y-1 transition-transform" />
+
+                  <Button type="submit" size="xl" className="w-full h-16 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
+                    Send Message
+                    <Send className="w-4 h-4 ml-3" />
                   </Button>
                 </form>
               </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -261,11 +264,19 @@ const Contact = () => {
               </a>
             </div>
 
-            {/* Abstract Map Background Simulation */}
-            <div className="absolute inset-0 bg-muted flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-1000">
-              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40" />
-              <div className="relative z-0 w-32 h-32 rounded-full hero-gradient blur-[80px] animate-pulse" />
-              <MapPin className="w-24 h-24 text-primary relative z-0 animate-bounce" />
+            {/* Google Map Embed */}
+            <div className="absolute inset-0 bg-muted">
+              <iframe
+                width="100%"
+                height="100%"
+                title="CHOA Headquarters Location"
+                src="https://maps.google.com/maps?q=6A, Thudiyalur Main Road, Saravanampatti Post, Coimbatore – 641035&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                style={{ filter: "grayscale(0.5) contrast(1.2) opacity(0.9)" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full border-0 group-hover:filter-none transition-all duration-700"
+              ></iframe>
             </div>
           </div>
         </div>

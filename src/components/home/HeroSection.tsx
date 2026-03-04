@@ -23,32 +23,32 @@ const HeroSection = () => {
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-xl rounded-full px-5 py-2 mb-6 border border-white/20 animate-fade-up shadow-lg group cursor-default">
             <ShieldCheck className="w-4 h-4 text-white animate-pulse" />
             <span className="text-white text-[9px] font-black tracking-[0.2em] uppercase">
-              Registered Institutional Body Since 2017
+              Working for Hostel Owners Since 2017
             </span>
           </div>
 
           {/* Visionary Heading */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 animate-fade-up stagger-1 tracking-tight">
-            THE APEX OF <br />
-            <span className="text-white/70 italic font-medium">HOSTEL STANDARDS</span>
+            BUILDING BETTER <br />
+            <span className="text-white/70 italic font-medium">HOSTELS TOGETHER</span>
           </h1>
 
           {/* Narrative Tagline */}
           <p className="text-base md:text-lg text-white/90 font-medium mb-8 max-w-2xl animate-fade-up stagger-2 leading-relaxed tracking-tight">
-            The authoritative council representing 300+ visionary proprietors driving the infrastructure and safety of Tamil Nadu's residency ecosystem.
+            We are a group of over 300 hostel owners in Tamil Nadu, working together to keep our hostels safe and high-quality.
           </p>
 
           {/* Action Hub */}
           <div className="flex flex-wrap items-center justify-center gap-4 mb-12 animate-fade-up stagger-3">
             <Link to="/members">
               <Button size="lg" className="h-14 px-8 rounded-xl bg-white text-primary hover:bg-secondary font-black text-base shadow-xl transition-all hover:scale-105 active:scale-95 group">
-                Access Registry
+                See Members
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/contact">
               <Button size="lg" variant="outline" className="h-14 px-8 rounded-xl border-2 border-white/30 text-white backdrop-blur-md hover:bg-white/10 font-black text-base transition-all">
-                Partner With Us
+                Get in Touch With Us
               </Button>
             </Link>
           </div>
@@ -56,10 +56,10 @@ const HeroSection = () => {
           {/* Elite Stats Ticker */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full animate-fade-up stagger-4 max-w-5xl">
             {[
-              { label: 'Advocacy Legacy', value: '8+ Yrs', icon: Award },
-              { label: 'Proprietor Network', value: '300+', icon: Users },
-              { label: 'Strategic Branches', value: '05', icon: MapPin },
-              { label: 'Verified Facilities', value: '500+', icon: Building },
+              { label: 'Experience', value: '8+ Yrs', icon: Award },
+              { label: 'Our Members', value: '300+', icon: Users },
+              { label: 'Our Offices', value: '05', icon: MapPin },
+              { label: 'Hostel Rooms', value: '500+', icon: Building },
             ].map((stat, i) => (
               <div key={i} className="relative bg-white/5 backdrop-blur-3xl rounded-[2rem] p-4 border border-white/10 hover:bg-white/10 hover:scale-105 transition-all duration-500 group overflow-hidden">
                 <div className="flex flex-col items-center gap-3 relative z-10">
@@ -78,7 +78,6 @@ const HeroSection = () => {
       </div>
 
       {/* Abstract Design Element: Geometric Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
 };

@@ -10,7 +10,7 @@ const navLinks = [
   { name: 'Member', path: '/members' },
   { name: 'Gallery', path: '/gallery' },
   { name: 'Blog', path: '/blog' },
-  { name: 'News', path: '/notices' },
+  { name: 'Notice', path: '/notices' },
   { name: 'Contact', path: '/contact' },
 ];
 
@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <>
       {/* Institutional Top Bar */}
-      <div className="bg-primary text-white py-2.5 hidden md:block relative z-50">
+      <div className="bg-primary text-white py-1.5 hidden md:block relative z-50">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-8">
             <a href="tel:9047747633" className="flex items-center gap-2.5 hover:text-white/80 transition-all group">
@@ -73,47 +73,53 @@ const Header = () => {
             : "bg-white border-b border-transparent"
         )}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6">
           <div className={cn(
             "flex items-center justify-between transition-all duration-500",
-            isScrolled ? "h-16" : "h-24"
+            isScrolled ? "h-16" : "h-20"
           )}>
             {/* Architectural Logo */}
-            <Link to="/" className="flex items-center gap-4 group">
+            <Link to="/" className="flex items-center gap-5 group">
               <div className="relative">
-                <div className="w-12 h-12 rounded-xl hero-gradient flex items-center justify-center shadow-xl group-hover:shadow-primary/40 transition-all duration-500 transform group-hover:-rotate-6">
-                  <span className="text-white font-black text-2xl">C</span>
+                <div className={cn(
+                  "rounded-2xl hero-gradient flex items-center justify-center shadow-2xl group-hover:shadow-primary/40 transition-all duration-500 transform group-hover:-rotate-6",
+                  isScrolled ? "w-10 h-10" : "w-11 h-11"
+                )}>
+                  <span className={cn(
+                    "text-white font-black transition-all duration-500",
+                    isScrolled ? "text-xl" : "text-2xl"
+                  )}>C</span>
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-white flex items-center justify-center shadow-md">
-                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white flex items-center justify-center shadow-md">
+                  <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
                 </div>
               </div>
               <div className="hidden sm:block">
                 <h1 className="text-xl font-black text-foreground tracking-tighter leading-none mb-1 group-hover:text-primary transition-colors">
                   CHOA
                 </h1>
-                <p className="text-[9px] text-muted-foreground font-black uppercase tracking-[0.2em] opacity-60">
+                <p className="text-[9px] text-muted-foreground font-black uppercase tracking-[0.25em] opacity-60">
                   Regional Hostel Ecosystem
                 </p>
               </div>
             </Link>
 
             {/* Intelligence Navigation */}
-            <nav className="hidden lg:flex items-center gap-2">
+            <nav className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
                   className={cn(
-                    "relative px-4 py-2 rounded-xl text-[13px] font-black uppercase tracking-widest transition-all duration-300 group overflow-hidden",
+                    "relative px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 group overflow-hidden",
                     location.pathname === link.path
-                      ? "text-primary bg-primary/5"
-                      : "text-foreground/60 hover:text-primary hover:bg-primary/5"
+                      ? "text-primary bg-primary/5 shadow-sm"
+                      : "text-foreground/70 hover:text-primary hover:bg-primary/5"
                   )}
                 >
                   {link.name}
                   <span className={cn(
-                    "absolute bottom-0 left-0 w-full h-[2px] bg-primary transform transition-transform duration-500",
+                    "absolute bottom-0 left-0 w-full h-[3px] bg-primary/20 transform transition-transform duration-500 origin-left",
                     location.pathname === link.path ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                   )} />
                 </Link>
@@ -123,7 +129,7 @@ const Header = () => {
             {/* Terminal Actions */}
             <div className="hidden lg:flex items-center gap-4">
               <Link to="/contact">
-                <Button className="h-12 px-8 rounded-xl bg-primary hover:bg-primary-dark font-black text-[11px] uppercase tracking-widest text-white shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95">
+                <Button className="h-10 px-6 rounded-xl bg-primary hover:bg-primary-dark font-black text-[10px] uppercase tracking-[0.2em] text-white shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95 ring-4 ring-primary/10">
                   Join Association
                 </Button>
               </Link>
@@ -132,7 +138,7 @@ const Header = () => {
             {/* Command Interface (Mobile Menu Button) */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-sm"
+              className="lg:hidden w-11 h-11 rounded-xl bg-secondary/50 backdrop-blur-md flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-sm border border-border/50"
               aria-label="Toggle Navigation"
             >
               {isMobileMenuOpen ? (
