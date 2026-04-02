@@ -93,7 +93,7 @@ const MembersManager = () => {
         data.append('hostel_name', formData.hostel_name);
         data.append('email', formData.email);
         data.append('phone', formData.phone);
-        if (editId) {
+        if (editId !== null && editId !== undefined) {
             data.append('id', editId.toString());
         }
         if (photoFile) {
@@ -298,7 +298,7 @@ const MembersManager = () => {
                                 <X size={18} />
                             </button>
 
-                            <h2 className="text-xl font-bold text-slate-900 mb-6">{editId ? 'Edit Member' : 'Add New Member'}</h2>
+                            <h2 className="text-xl font-bold text-slate-900 mb-6">{editId !== null ? 'Edit Member' : 'Add New Member'}</h2>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="space-y-4">
@@ -417,7 +417,7 @@ const MembersManager = () => {
                                         disabled={uploadLoading}
                                         className="flex-1 h-12 rounded-xl bg-primary text-white font-bold uppercase tracking-wider text-xs shadow-lg shadow-primary/20 disabled:opacity-50"
                                     >
-                                        {uploadLoading ? 'Saving...' : (editId ? 'Update Member' : 'Save Member')}
+                                        {uploadLoading ? 'Saving...' : (editId !== null ? 'Update Member' : 'Save Member')}
                                     </Button>
                                 </div>
                             </form>

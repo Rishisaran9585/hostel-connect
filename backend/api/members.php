@@ -77,11 +77,12 @@ switch ($method) {
             }
         }
 
-        $id = isset($_POST['id']) ? $conn->real_escape_string($_POST['id']) : '';
+        $id = isset($_POST['id']) ? $_POST['id'] : null;
 
-        if (!empty($id)) {
+        if ($id && $id !== '' && $id !== 'null' && $id !== 'undefined') {
+            $id = $conn->real_escape_string($id);
             $sql = "UPDATE members SET name='$name', designation='$designation', email='$email', phone='$phone', category='$category', hostel_name='$hostel_name'";
-            
+
             if ($photoPath !== '') {
                 $sql_get = "SELECT photo FROM members WHERE id = '$id'";
                 $res = $conn->query($sql_get);
@@ -93,7 +94,7 @@ switch ($method) {
                 $sql .= ", photo='$photoPath'";
             }
             $sql .= " WHERE id='$id'";
-            
+
             if ($conn->query($sql) === TRUE) {
                 echo json_encode([
                     "success" => true,
