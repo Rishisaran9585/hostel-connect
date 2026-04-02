@@ -40,7 +40,7 @@ if (!file_exists($uploadDir)) {
 
 switch ($method) {
     case 'GET':
-        $sql = "SELECT id, name, COALESCE(designation, category) as role, email, phone, hostel_name, photo, category, DATE(created_at) as join_date FROM members ORDER BY name ASC";
+        $sql = "SELECT id, name, designation, COALESCE(designation, category) as role, email, phone, hostel_name, photo, category, DATE(created_at) as join_date FROM members ORDER BY name ASC";
         $result = $conn->query($sql);
         $members = [];
         if ($result && $result->num_rows > 0) {
@@ -77,19 +77,49 @@ switch ($method) {
             }
         }
 
-        $sql = "INSERT INTO members (name, designation, email, phone, category, hostel_name, photo) 
-                VALUES ('$name', '$designation', '$email', '$phone', '$category', '$hostel_name', '$photoPath')";
+        $id = isset($_POST['id']) ? $conn->real_escape_string($_POST['id']) : '';
 
-        if ($conn->query($sql) === TRUE) {
-            echo json_encode([
-                "success" => true,
-                "message" => "Member added successfully",
-                "id" => $conn->insert_id,
-                "photo" => $photoPath
-            ]);
+        if (!empty($id)) {
+            $sql = "UPDATE members SET name='$name', designation='$designation', email='$email', phone='$phone', category='$category', hostel_name='$hostel_name'";
+            
+            if ($photoPath !== '') {
+                $sql_get = "SELECT photo FROM members WHERE id = '$id'";
+                $res = $conn->query($sql_get);
+                if ($res && $row = $res->fetch_assoc()) {
+                    if (!empty($row['photo']) && file_exists('../' . $row['photo'])) {
+                        @unlink('../' . $row['photo']);
+                    }
+                }
+                $sql .= ", photo='$photoPath'";
+            }
+            $sql .= " WHERE id='$id'";
+            
+            if ($conn->query($sql) === TRUE) {
+                echo json_encode([
+                    "success" => true,
+                    "message" => "Member updated successfully",
+                    "id" => $id,
+                    "photo" => $photoPath
+                ]);
+            } else {
+                http_response_code(500);
+                echo json_encode(["success" => false, "message" => "Database Error: " . $conn->error]);
+            }
         } else {
-            http_response_code(500);
-            echo json_encode(["success" => false, "message" => "Database Error: " . $conn->error]);
+            $sql = "INSERT INTO members (name, designation, email, phone, category, hostel_name, photo) 
+                    VALUES ('$name', '$designation', '$email', '$phone', '$category', '$hostel_name', '$photoPath')";
+
+            if ($conn->query($sql) === TRUE) {
+                echo json_encode([
+                    "success" => true,
+                    "message" => "Member added successfully",
+                    "id" => $conn->insert_id,
+                    "photo" => $photoPath
+                ]);
+            } else {
+                http_response_code(500);
+                echo json_encode(["success" => false, "message" => "Database Error: " . $conn->error]);
+            }
         }
         break;
 

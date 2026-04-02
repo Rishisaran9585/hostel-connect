@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
-import { Trash2, Search, Filter, Mail, Phone, PlusCircle, X, Camera } from 'lucide-react';
+import { Trash2, Search, Filter, Mail, Phone, PlusCircle, X, Camera, Edit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +9,7 @@ import { API_BASE_URL, BACKEND_URL } from '@/config';
 interface Member {
     id: number;
     name: string;
+    designation?: string;
     role: string;
     email: string;
     phone: string;
@@ -33,6 +34,7 @@ const MembersManager = () => {
         email: '',
         phone: '',
     });
+    const [editId, setEditId] = useState<number | null>(null);
     const [photoFile, setPhotoFile] = useState<File | null>(null);
 
     useEffect(() => {
@@ -66,6 +68,20 @@ const MembersManager = () => {
         }
     };
 
+    const handleEdit = (member: Member) => {
+        setEditId(member.id);
+        setFormData({
+            name: member.name,
+            category: member.category || 'general',
+            designation: member.designation || member.role || '',
+            hostel_name: member.hostel_name || '',
+            email: member.email || '',
+            phone: member.phone || '',
+        });
+        setPhotoFile(null);
+        setIsModalOpen(true);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setUploadLoading(true);
@@ -77,6 +93,9 @@ const MembersManager = () => {
         data.append('hostel_name', formData.hostel_name);
         data.append('email', formData.email);
         data.append('phone', formData.phone);
+        if (editId) {
+            data.append('id', editId.toString());
+        }
         if (photoFile) {
             data.append('photo', photoFile);
         }
@@ -111,6 +130,7 @@ const MembersManager = () => {
             email: '',
             phone: '',
         });
+        setEditId(null);
         setPhotoFile(null);
     };
 
@@ -242,12 +262,20 @@ const MembersManager = () => {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-right">
-                                                <button
-                                                    onClick={() => handleDelete(member.id)}
-                                                    className="w-8 h-8 rounded-lg bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white transition-all flex items-center justify-center ml-auto shadow-sm"
-                                                >
-                                                    <Trash2 size={14} />
-                                                </button>
+                                                <div className="flex items-center justify-end gap-2">
+                                                    <button
+                                                        onClick={() => handleEdit(member)}
+                                                        className="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white transition-all flex items-center justify-center shadow-sm"
+                                                    >
+                                                        <Edit size={14} />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDelete(member.id)}
+                                                        className="w-8 h-8 rounded-lg bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white transition-all flex items-center justify-center shadow-sm"
+                                                    >
+                                                        <Trash2 size={14} />
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     ))
@@ -270,7 +298,7 @@ const MembersManager = () => {
                                 <X size={18} />
                             </button>
 
-                            <h2 className="text-xl font-bold text-slate-900 mb-6">Add New Member</h2>
+                            <h2 className="text-xl font-bold text-slate-900 mb-6">{editId ? 'Edit Member' : 'Add New Member'}</h2>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="space-y-4">
@@ -389,7 +417,7 @@ const MembersManager = () => {
                                         disabled={uploadLoading}
                                         className="flex-1 h-12 rounded-xl bg-primary text-white font-bold uppercase tracking-wider text-xs shadow-lg shadow-primary/20 disabled:opacity-50"
                                     >
-                                        {uploadLoading ? 'Saving...' : 'Save Member'}
+                                        {uploadLoading ? 'Saving...' : (editId ? 'Update Member' : 'Save Member')}
                                     </Button>
                                 </div>
                             </form>

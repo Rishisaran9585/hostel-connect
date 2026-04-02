@@ -4,6 +4,7 @@ import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Instagram, Linkedin, You
 const Footer = () => {
   const quickLinks = [
     { name: 'About Us', path: '/about' },
+    { name: 'Vision & Mission', path: '/vision-mission' },
     { name: 'Our Members', path: '/members' },
     { name: 'Media Gallery', path: '/gallery' },
     { name: 'Latest Blog', path: '/blog' },
