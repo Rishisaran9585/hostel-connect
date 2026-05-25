@@ -96,10 +96,10 @@ const About = () => {
             Our History
           </Badge>
           <h1 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight max-w-5xl mx-auto leading-tight">
-            Building the <span className="text-white/80">Future of Hostels</span>
+            Coimbatore Hostel <span className="text-white/80">Owners Association</span>
           </h1>
           <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium">
-            We help hostel owners grow safely and legally across Tamil Nadu since 2017.
+            Established in 2017 as a nonprofit organization uniting hostel owners to strengthen the industry and support member success.
           </p>
         </div>
 
@@ -117,14 +117,23 @@ const About = () => {
                 <span>Established March 2017</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-foreground mb-8 tracking-tight leading-tight">
-                Our <br /><span className="text-primary/80">Story</span>
+                Coimbatore Hostel <br /><span className="text-primary/80">Owners Association</span>
               </h2>
-              <div className="space-y-6 text-muted-foreground text-lg leading-relaxed font-medium">
+              <div className="space-y-6 text-muted-foreground text-base leading-relaxed font-medium">
                 <p>
-                  CHOA was started to bring all hostel owners together as one strong team.
+                  The Coimbatore Hostel Owners Association (CHOA), established in 2017, is a dedicated nonprofit organization formed by 13 visionary hostel owners who came together with a common goal of strengthening and uplifting the hostel industry in and around Coimbatore. The association was founded to create a unified platform that represents the interests of hostel owners while promoting collaboration, professionalism, and mutual support among members.
                 </p>
                 <p>
-                  Today, we work with over 300 owners to solve common problems and deal with government rules together.
+                  Since its inception, CHOA has been actively working towards improving the standards of hostel accommodation by encouraging knowledge sharing, networking, and collective growth within the community. The association serves as a bridge between hostel owners, residents, and regulatory authorities, helping members stay informed and aligned with statutory norms and industry best practices.
+                </p>
+                <p>
+                  CHOA strongly emphasizes legal compliance, quality facilities, and continuous improvement in hostel infrastructure. The association encourages its members to provide safe, hygienic, comfortable, and resident-friendly living environments that meet the evolving expectations of students and working professionals.
+                </p>
+                <p>
+                  With resident welfare at the heart of its mission, CHOA believes that a healthy and well-maintained hostel environment contributes significantly to the overall quality of life of residents. Through unity, shared responsibility, and progressive initiatives, the association continues to play an important role in enhancing the reputation and standards of the hostel sector in Coimbatore.
+                </p>
+                <p className="italic text-primary font-bold">
+                  “Together for Better Hostels and Better Living.”
                 </p>
               </div>
 
@@ -134,12 +143,12 @@ const About = () => {
                   <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-1">Active Members</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-4xl font-black text-foreground">05+</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-1">Regional Hubs</span>
+                  <span className="text-4xl font-black text-foreground">10,000+</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-1">Hostel Rooms</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-4xl font-black text-foreground">07+</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-1">Policy Victories</span>
+                  <span className="text-4xl font-black text-foreground">2017</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-1">Established</span>
                 </div>
               </div>
             </div>
@@ -159,6 +168,49 @@ const About = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Objectives Section */}
+      <section className="py-24 bg-secondary/30 relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="flex items-center justify-center gap-3 text-primary font-black uppercase tracking-[0.2em] text-[10px] mb-6">
+              <div className="w-8 h-[2px] bg-primary" />
+              <span>Our Mission</span>
+              <div className="w-8 h-[2px] bg-primary" />
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-foreground mb-6 tracking-tight">
+              Core Objectives of CHOA
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              'Unite hostel owners under a single professional platform',
+              'Promote networking, cooperation, and knowledge sharing among members',
+              'Encourage compliance with legal and regulatory requirements',
+              'Improve hostel infrastructure and standard facilities',
+              'Ensure resident safety, comfort, hygiene, and healthy living conditions',
+              'Uplift and standardize hostel accommodation services across Coimbatore'
+            ].map((objective, index) => (
+              <div
+                key={index}
+                className="group relative p-8 rounded-[2.5rem] bg-white border border-border/50 hover:bg-gradient-to-br hover:from-primary/5 hover:to-primary/10 hover:border-primary/20 hover:shadow-xl transition-all duration-500 flex flex-col items-start overflow-hidden"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-[4rem] group-hover:scale-110 transition-transform duration-500" />
+                
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  <Check className="w-6 h-6 text-primary group-hover:text-white" />
+                </div>
+
+                <p className="text-foreground font-bold leading-relaxed relative z-10">
+                  {objective}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

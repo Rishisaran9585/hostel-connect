@@ -5,45 +5,38 @@ import { Badge } from '@/components/ui/badge';
 const VisionMission = () => {
   const objectiveCategories = [
     {
-      title: "Unity & Guidance",
+      title: "Unity & Ethics",
       icon: Users,
-      description: "Empowering and organizing hostel owners.",
+      description: "Uniting owners under a common legal and ethical framework.",
       points: [
-        "To bring together and unite all hostel owners operating in the city under one organization and create coordination among them.",
-        "To support and guide all hostel owners in the city to run their hostels in a legal and proper manner.",
-        "To work for the welfare and protection of the interests of the hostel owners mentioned above."
+        "To bring all hostel owners operating in the city under one roof and create unity among them.",
+        "All hostel owners operating in the city shall strive to operate their establishments in a legal and ethical manner.",
+        "To safeguard and enhance the interests and security aspects of the hostel owners mentioned above.",
+        "This organization shall operate without political motives or profit-oriented intentions.",
+        "The association shall function in accordance with the T.N.A. Association Registration Act, 1975 and Rules, 1978"
       ]
     },
     {
-      title: "Safety & Standards",
+      title: "Safety & Wellbeing",
       icon: Home,
-      description: "Ensuring high-quality accommodations.",
+      description: "Setting benchmarks for safe and healthy living.",
       points: [
-        "To create awareness about providing proper infrastructure and facilities so that both men and women can stay safely without discrimination of caste, religion, or community.",
-        "To create awareness about running hostels with proper safety and hygiene standards for men and women who come to the city for education or employment.",
-        "To ensure that male and female residents in hostels are accommodated safely and properly and that necessary facilities are provided for them.",
-        "To work towards improving modern communication facilities according to changing situations and to improve the hygiene and safety standards of hostels.",
-        "To work towards improving a healthy living environment for the people staying in hostels."
+        "To create awareness regarding the development of basic infrastructure facilities to ensure safe accommodation for both men and women, irrespective of ethnicity, language, or religion.",
+        "To promote awareness about maintaining safety and hygiene standards in hostels, particularly for students attending colleges and individuals going to work.",
+        "To ensure that men and women staying in hostels are accommodated separately and safely, and that adequate facilities are provided for their well-being and reassurance of their parents.",
+        "To improve the health and safety standards of hostels by adopting modern communication tools suitable for the changing environment.",
+        "To promote a healthy and comfortable living environment for people residing in hostels."
       ]
     },
     {
-      title: "Social Responsibility",
+      title: "Social Welfare",
       icon: HeartHandshake,
-      description: "Giving back to the community.",
+      description: "Empowering the underprivileged and collaborating for society.",
       points: [
-        "According to the financial capacity of the association, to provide support for establishing small industries or employment opportunities for poor and orphaned people.",
-        "To work together with others for the welfare of society.",
-        "According to the financial resources of the association, to provide assistance such as milk, school facilities, and medical financial help free of cost to poor and orphaned children.",
-        "To arrange or provide medical assistance."
-      ]
-    },
-    {
-      title: "Ethics & Governance",
-      icon: Scale,
-      description: "Operating with integrity and compliance.",
-      points: [
-        "This organization will not function with political motives or profit motives.",
-        "This association shall function in accordance with the Tamil Nadu Societies Registration Act, 1975 and Rules, 1978."
+        "To provide assistance to the poor and orphans in establishing small industrial enterprises, considering their financial circumstances.",
+        "To collaborate with other organizations and individuals for the benefit and welfare of society.",
+        "To provide free textbooks, school uniforms, and medical assistance to poor orphans, within the financial capacity of the institution.",
+        "To provide access to medical facilities wherever possible."
       ]
     }
   ];
@@ -66,7 +59,7 @@ const VisionMission = () => {
             Our Vision & <span className="text-white/80">Mission</span>
           </h1>
           <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium">
-            The core principles and objectives that drive the Coimbatore Hostel Owner Association.
+            The core principles and objectives that drive the Coimbatore Hostel Owners Association.
           </p>
         </div>
 
